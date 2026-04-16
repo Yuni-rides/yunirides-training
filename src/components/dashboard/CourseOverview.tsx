@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { courseModules } from "@/constants/dashboard";
+import { courseModules, courses } from "@/constants/dashboard";
 import { LayoutGrid, ChevronDown } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -13,6 +13,7 @@ export default function CourseOverview() {
 
 
   return (
+    
     <div className="bg-[#EFF2FF] p-5 rounded-2xl shadow-sm">
 
       {/* ── Header ── */}
@@ -47,6 +48,7 @@ export default function CourseOverview() {
             {selectedFilter}
             <ChevronDown size={14} />
           </button>
+         
 
           {/* Grid view toggle */}
           <button className="flex items-center justify-center w-9 h-9 bg-[#EFF2FF] rounded-lg hover:bg-[#e0e5ff] transition">
@@ -60,6 +62,7 @@ export default function CourseOverview() {
 
 
       <div className="grid grid-cols-4 gap-3">
+        
         {courseModules.map((item) => (
           <div
             key={item.id}

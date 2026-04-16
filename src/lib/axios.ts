@@ -2,7 +2,8 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "https://api.yunirides.com/api",
+baseURL: process.env.NEXT_PUBLIC_API_URL
+  
 });
 
 apiClient.interceptors.request.use((config) => {

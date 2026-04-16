@@ -21,10 +21,10 @@ export default function CourseDetailPage({
 }) {
   const router = useRouter();
   const module = courseModules.find((m) => m.id === params.courseId)
-    ?? courseModules[0];
+    ?? courseModules[1];
 
   const [activeLesson, setActiveLesson] = useState<string>(
-    module.lessons[0]?.id ?? ""
+    module.lessons[1]?.id ?? ""
   );
 
   return (
@@ -54,10 +54,6 @@ export default function CourseDetailPage({
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center text-white text-[11px] font-semibold">
               JC
-            </div>
-            <div>
-              <p className="text-[11px] font-semibold text-[#1e1b4b]">James Clark</p>
-              <p className="text-[10px] text-gray-400">jamesc23@gmail.com</p>
             </div>
           </div>
         </div>
