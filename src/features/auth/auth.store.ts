@@ -25,13 +25,17 @@ export const useAuthStore = create<AuthStore>()(
 
       setError: (error) => set({ error, isLoading: false }),
 
-      logout: () =>
-        set({
-          user: null,
-          accessToken: null,
-          isAuthenticated: false,
-          error: null,
-        }),
+     logout: () => {
+  localStorage.removeItem("access_token");
+  sessionStorage.removeItem("access_token");
+
+  set({
+    user: null,
+    accessToken: null,
+    isAuthenticated: false,
+  });
+},
+        
     }),
     {
       name: "auth-storage",

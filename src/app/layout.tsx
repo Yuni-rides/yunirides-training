@@ -19,4 +19,5 @@ export default function RootLayout({
       <body className={geist.className}>{children}</body>
     </html>
   );
+  
 }

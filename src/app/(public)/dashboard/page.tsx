@@ -1,15 +1,16 @@
 
 import Sidebar from "@/components/dashboard/Sidebar";
 import Header from "@/components/dashboard/Header";
-import CourseCard from "@/components/dashboard/CourseCard";
+import CourseCard from "@/components/dashboard/CoursesSlider";
 import CourseOverview from "@/components/dashboard/CourseOverview";
 import CalendarCard from "@/components/dashboard/CalendarCard";
 import UpcomingEvents from "@/components/dashboard/UpcomingEvents";
 
+
 export default function DashboardPage() {
   return (
     <div className="flex h-screen bg-[white]">
-      <Sidebar />
+   
 
       <div className="flex-1 p-6 space-y-6 overflow-y-auto">
         <Header />
@@ -44,7 +45,9 @@ export default function DashboardPage() {
             <UpcomingEvents />
           </div>
         </div>
+        
       </div>
+      
     </div>
   );
 }

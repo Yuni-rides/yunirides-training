@@ -1,4 +1,5 @@
 export interface LoginRequest {
+  email: string;
   username: string;
   password: string;
   rememberMe?: boolean;
@@ -26,3 +27,9 @@ export interface AuthState {
   isLoading: boolean;
   error: string | null;
 }
+
+export type LoginFormData = {
+  username: string;
+  password: string;
+  rememberMe?: boolean;
+};

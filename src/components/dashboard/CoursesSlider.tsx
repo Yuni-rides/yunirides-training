@@ -21,15 +21,12 @@ export default function CourseCard() {
               key={course.id}
               className="bg-purple-50 rounded-xl flex gap-3 items-center p-3 flex-1 min-w-0"
             >
-              {/* Thumbnail with play button */}
               <div className="relative w-20 h-[72px] rounded-xl overflow-hidden flex-shrink-0 bg-purple-400">
-                {/* Replace with your actual image */}
                 <img
                   src={course.thumbnail}
-                 
                   className="w-full h-full object-cover"
                 />
-                {/* Play overlay */}
+
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center">
                     <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
@@ -39,14 +36,10 @@ export default function CourseCard() {
                 </div>
               </div>
 
-              {/* Info */}
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium text-purple-900 mb-2 leading-snug line-clamp-2">
-                 
-                </p>
+                <p className="text-xs font-medium text-purple-900 mb-2 leading-snug line-clamp-2"></p>
 
                 <div className="flex gap-3 items-center flex-wrap">
-                  {/* Duration */}
                   <div>
                     <p className="text-[10px] text-purple-600 font-medium mb-1">Duration</p>
                     <span className="inline-flex items-center gap-1 bg-white border border-purple-200 rounded-full px-2.5 py-0.5 text-[11px] text-purple-800 font-medium">
@@ -54,7 +47,6 @@ export default function CourseCard() {
                     </span>
                   </div>
 
-                  {/* Status */}
                   <div>
                     <p className="text-[10px] text-purple-600 font-medium mb-1">Program status</p>
                     <span
@@ -82,5 +74,39 @@ export default function CourseCard() {
 
       </div>
     </div>
+  );
+}
+
+/* =========================
+   ICONS (MOVED OUTSIDE JSX)
+   ========================= */
+
+function PlayIcon() {
+  return (
+    <svg width="11" height="13" viewBox="0 0 11 13" fill="none">
+      <path d="M1 1.2L10 6.5 10 11.8V1.2Z" fill="#6b5fc7" />
+    </svg>
+  );
+}
+
+function HeartIcon({ filled }: { filled?: boolean }) {
+  return (
+    <svg width="11" height="10" viewBox="0 0 12 11" fill="none">
+      <path
+        d="M6 10S1 6.8 1 3.5A2.5 2.5 0 016 3.5 2.5 2.5 0 0111 3.5C11 6.8 6 10 6 10z"
+        fill={filled ? "white" : "none"}
+        stroke={filled ? "none" : "#9ca3af"}
+        strokeWidth="1.2"
+      />
+    </svg>
+  );
+}
+
+function ClockIcon() {
+  return (
+    <svg width="9" height="9" viewBox="0 0 10 10" fill="none">
+      <circle cx="5" cy="5" r="4" stroke="white" strokeWidth="1" />
+      <path d="M5 3v2.2l1.3 1.3" stroke="white" strokeWidth="1" strokeLinecap="round" />
+    </svg>
   );
 }

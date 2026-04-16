@@ -1,18 +1,26 @@
-import { http } from "@/shared/api/http";
-import type { LoginRequest, LoginResponse } from "./auth.types";
+import apiClient from "@/lib/axios";
+import { LoginFormData } from "./auth.types";
 
 export const authApi = {
-  login: async (data: LoginRequest): Promise<LoginResponse> => {
-    const response = await http.post<LoginResponse>("/auth/login", data);
-    return response.data;
-  },
+  login: async (data: LoginFormData) => {
+    const response = await apiClient.post("/auth/login", {
+      email: data.username,
+      password: data.password,
+    });
 
-  logout: async (): Promise<void> => {
-    await http.post("/auth/logout");
-  },
+    console.log("LOGIN RESPONSE 👉", response.data);
 
-  me: async () => {
-    const response = await http.get("/auth/me");
-    return response.data;
+    return {
+      user: response.data.data.user,
+      accessToken: response.data.data.accessToken,
+    };
+
   },
+  logout: async () => {
+  const response = await apiClient.post("/auth/logout");
+
+  console.log("LOGOUT RESPONSE 👉", response.data);
+
+  return response.data;
+},
 };

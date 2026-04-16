@@ -71,4 +71,27 @@ export const upcomingEvents = [
   },
 ];
 
+
 export const calendarDays = Array.from({ length: 31 }, (_, i) => i + 1);
+
+// constants/dashboard.ts — add this to your courses data
+export interface Course {
+  id: number;
+  title: string;
+  desc: string;
+  thumbnail?: string;
+  status: "active" | "inactive";
+  duration: string;
+  isFavorited?: boolean;
+}
+
+export const course: Course[] = [
+  { id: 1, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "active", duration: "15 min" },
+  { id: 2, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 3, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 4, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 5, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 6, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 7, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 8, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+];

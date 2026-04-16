@@ -59,7 +59,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen w-full">
       {/* ── Left panel ── */}
       <div
-        className="flex w-full flex-col justify-center bg-[#EEF2F7] px-10 md:w-[480px] md:px-14 lg:px-20"
+        className="flex w-full flex-col justify-center bg-#EFF2FF px-10 md:w-[480px] md:px-14 lg:px-20"
       >
         {/* Logo */}
         
