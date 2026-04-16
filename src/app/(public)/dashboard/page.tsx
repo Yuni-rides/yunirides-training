@@ -1,5 +1,4 @@
 
-import Sidebar from "@/components/dashboard/Sidebar";
 import Header from "@/components/dashboard/Header";
 import CourseCard from "@/components/dashboard/CoursesSlider";
 import CourseOverview from "@/components/dashboard/CourseOverview";

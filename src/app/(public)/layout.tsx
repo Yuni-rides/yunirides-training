@@ -1,4 +1,4 @@
-import CollapsedSidebar from "@/components/dashboard/CollapsedSidebar";
+
 import Sidebar from "@/components/dashboard/Sidebar";
 
 export default function DashboardLayout({

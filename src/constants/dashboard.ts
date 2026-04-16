@@ -77,15 +77,16 @@ export const calendarDays = Array.from({ length: 31 }, (_, i) => i + 1);
 // constants/dashboard.ts — add this to your courses data
 export interface Course {
   id: number;
-  title: string;
   desc: string;
   thumbnail?: string;
   status: "active" | "inactive";
   duration: string;
   isFavorited?: boolean;
+  title: string;
 }
 
 export const course: Course[] = [
+  
   { id: 1, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "active", duration: "15 min" },
   { id: 2, title: "Yunirides new driver training module 2", desc: "MODULE 2 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
   { id: 3, title: "Yunirides new driver training module 3", desc: "MODULE 3 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },

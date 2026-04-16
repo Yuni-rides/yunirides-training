@@ -19,6 +19,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
+  if (token && isPublicRoute) {
+    return NextResponse.redirect(new URL("/my-courses", request.url));
+  }
+
   return NextResponse.next();
 }
 
