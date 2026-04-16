@@ -3,10 +3,14 @@
 import { useState } from "react";
 import { courseModules } from "@/constants/dashboard";
 import { LayoutGrid, ChevronDown } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 
 export default function CourseOverview() {
   const [selectedFilter, setSelectedFilter] = useState("All courses");
+
+  const router = useRouter();
+
 
   return (
     <div className="bg-[#EFF2FF] p-5 rounded-2xl shadow-sm">
@@ -80,6 +84,7 @@ export default function CourseOverview() {
           </div>
         ))}
       </div>
+      
     </div>
   );
 }

@@ -86,12 +86,12 @@ export interface Course {
 }
 
 export const course: Course[] = [
-  { id: 1, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "active", duration: "15 min" },
-  { id: 2, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
-  { id: 3, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
-  { id: 4, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
-  { id: 5, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
-  { id: 6, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
-  { id: 7, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
-  { id: 8, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 101, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "active", duration: "15 min" },
+  { id: 102, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 103, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 104, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 105, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 106, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 107, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+  { id: 108, title: "Yunirides new driver training module 1", desc: "MODULE 1 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
 ];
