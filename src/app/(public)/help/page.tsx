@@ -15,7 +15,7 @@ const FAQS = [
 
 export default function HelpPage() {
   return (
-    <div className="flex-1 flex flex-col min-w-full h-full bg-white">
+    <div className="flex-1 flex flex-col min-w-full bg-white">
       {/* Top Bar Section */}
       <HelpHeader />
 
@@ -31,13 +31,13 @@ export default function HelpPage() {
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1 flex flex-col min-w-0 bg-[#F8F9FE]">
             <div className="px-8 pb-10">
-              <div className="flex flex-col lg:flex-row gap-8">
+              <div className="flex flex-col lg:flex-row gap-8 items-start">
                 <FaqSection />
 
-                {/* Right Sidebar Section (Support/Contact) */}
-                <div className="w-full lg:w-80">
-                  {/* Support Components */}
-                </div>
+
+          {/* RIGHT SECTION: The Sidebar */}
+
+          <div className="w-full lg:w-80 flex flex-col gap-6 items-start"></div>
               </div>
             </div>
           </div>

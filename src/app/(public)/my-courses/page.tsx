@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { Search, Grid, BarChart2, Bell, Calendar, ChevronDown } from "lucide-react";
-// Assuming these exist in your project based on your snippet
 import CourseCard from "@/components/my-courses/CourseCard";
 import { courses } from "@/constants/dashboard";
 
@@ -52,7 +51,7 @@ export default function MyCoursesPage() {
                 className={`pb-4 text-[13px] font-medium transition-all relative ${
                   activeTab === tab
                     ? "text-[#1E1B4B] after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-[#1E1B4B]"
-                    : "text-gray-400 hover:text-gray-600"
+                    : "text-gray-400 hover:text-purple-600"
                 }`}
               >
                 {tab}
