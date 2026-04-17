@@ -17,11 +17,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={geist.className}>{children}</body>
-     {/* Added 'max-w-full overflow-x-hidden' to prevent global dragging */}
-      <body className={`${geist.className} max-w-full overflow-x-hidden`}>
-        {children}
-      </body>
-    
     </html>
   );
   

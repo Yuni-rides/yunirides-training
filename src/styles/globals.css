@@ -1,95 +1,112 @@
 @import "tailwindcss";
 
-/* =========================
-   BASE THEME & VARIABLES
-========================= */
 :root {
-  --background: #EFF2FF; /* Standard light blue/gray background */
+  --background: #ffffff;
   --foreground: #171717;
-  
-  --color-primary: #822C89; 
-  --color-primary-light: #F3E8FF;
-  --color-dashboard-bg: #EFF2FF;
-  --color-card: #FFFFFF;
-  --color-header: #E6E8F5;
-  --color-muted: #6B7280;
 }
 
-/* =========================
-   GLOBAL RESET (THE MOBILE FIX)
-========================= */
-* {
-  box-sizing: border-box;
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
-html, body {
-  /* Prevent horizontal scrolling globally */
-  max-width: 100vw;
-  overflow-x: hidden;
-  /* Smooth scrolling for anchor links */
-  scroll-behavior: smooth;
-  /* Force the body to at least fill the screen */
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #EFF2FF;
+    --foreground: #ededed;
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
-  /* Fix for text size adjustment on orientation change */
-  -webkit-text-size-adjust: 100%;
 }
 
 /* =========================
-   TAILWIND THEME CONFIG
+   BASE THEME (EXISTING)
 ========================= */
+:root {
+  --background: #EFF2FF; /* ✅ dashboard bg */
+  --foreground: #171717;
+
+ 
+  --color-primary: #822C89;       /* ✅ logo purple */
+  --color-primary-light: #F3E8FF;
+  --color-dashboard-bg: #EFF2FF;  /* ✅ same as figma */
+  --color-card: #FFFFFF;
+  --color-header: #E6E8F5;        /* ✅ top bar color */
+  --color-muted: #6B7280;
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
   --color-primary: var(--color-primary);
   --color-primary-light: var(--color-primary-light);
   --color-dashboard-bg: var(--color-dashboard-bg);
   --color-card: var(--color-card);
   --color-muted: var(--color-muted);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* =========================
+   DARK MODE (KEEP + ADJUST)
+========================= */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #EFF2FF;
+    --foreground: #ededed;
+  }
+}
+
+/* =========================
+   GLOBAL STYLES
+========================= */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 /* =========================
    REUSABLE UI HELPERS
 ========================= */
 
-/* Ensure cards never exceed their container width */
+/* Cards (used everywhere in dashboard) */
 .card {
   background: var(--color-card);
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  max-width: 100%; 
 }
 
+/* Primary button */
 .btn-primary {
   background: var(--color-primary);
   color: white;
   padding: 8px 16px;
   border-radius: 8px;
   transition: 0.2s;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
-
 .btn-primary:hover {
   opacity: 0.9;
 }
 
-/* Custom Scrollbar for Desktop */
-@media (min-width: 1024px) {
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #d1d5db;
-    border-radius: 10px;
-  }
+/* Muted text */
+.text-muted {
+  color: var(--color-muted);
+}
+
+/* Scrollbar (nice UI touch like Figma) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 10px;
 }
