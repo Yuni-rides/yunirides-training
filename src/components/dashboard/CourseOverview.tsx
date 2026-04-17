@@ -53,8 +53,8 @@ export default function CourseOverview() {
           >
             {/* Added a white background and better rounding to make the card "pop" */}
             <div className="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all bg-white border border-transparent hover:border-purple-200 p-1">
-              {/* Thumbnail - Changed aspect ratio to 16/9 (video style) */}
-              <div className="relative w-full aspect-video bg-gray-200 overflow-hidden rounded-xl">
+          
+              <div className="relative w-full object-cover bg-gray-200 overflow-hidden rounded-xl">
                 <img
                   src={item.thumbnail}
                   
