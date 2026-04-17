@@ -20,8 +20,7 @@ export const useAuthStore = create<AuthStore>()(
       error: null,
 
       setAuth: (user, accessToken) => {
-        // 1. SET THE COOKIE FOR MIDDLEWARE (The Fix!)
-        // 'Secure: true' and 'SameSite: None' are required for Vercel
+     
         Cookies.set("access_token", accessToken, { 
           expires: 7, 
           secure: true, 
@@ -36,7 +35,7 @@ export const useAuthStore = create<AuthStore>()(
       setError: (error) => set({ error, isLoading: false }),
 
       logout: () => {
-        // 2. REMOVE THE COOKIE
+    
         Cookies.remove("access_token");
         
         localStorage.removeItem("access_token");

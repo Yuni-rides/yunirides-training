@@ -1,5 +1,7 @@
+"use client";
+
 import { courses } from "@/constants/dashboard";
-import Link from 'next/link'; // 1. Import the Link component
+import Link from "next/link"; // Ensure Link is imported
 
 export default function CourseCard() {
   return (
@@ -17,24 +19,24 @@ export default function CourseCard() {
         {/* Course list */}
         <div className="flex gap-3 flex-1 overflow-hidden">
           {courses.map((course) => (
-            // 2. WRAP THE CARD IN A LINK
-            // This points to: /my-courses/[courseId]
+            /* 1. WRAP CARD IN LINK */
             <Link 
-              href={`/my-courses/${course.id}`} 
               key={course.id} 
-              className="flex-1 min-w-0 transition-transform hover:scale-[1.01] active:scale-[0.98]"
+              href={`/my-courses/${course.id}`}
+              className="flex-1 min-w-[300px] group block"
             >
-              <div className="bg-purple-50 rounded-xl flex gap-3 items-center p-3 h-full cursor-pointer hover:bg-purple-100 transition-colors border border-transparent hover:border-purple-200">
+              <div className="bg-purple-50 rounded-xl flex gap-3 items-center p-3 h-full border border-transparent hover:border-purple-200 transition-all">
                 
-                {/* Thumbnail Container */}
-                <div className="relative w-20 h-[72px] rounded-xl overflow-hidden flex-shrink-0 bg-purple-400 shadow-sm">
+                {/* Thumbnail */}
+                <div className="relative w-20 h-[72px] rounded-xl overflow-hidden flex-shrink-0 bg-purple-400">
                   <img
                     src={course.thumbnail}
-                   
-                    className="w-full h-full object-cover"
+                
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/10">
-                    <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center shadow-md">
+
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center shadow-sm">
                       <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
                         <path d="M1 1L9 6L1 11V1Z" fill="#7C3AED"/>
                       </svg>
@@ -42,11 +44,11 @@ export default function CourseCard() {
                   </div>
                 </div>
 
-                {/* Text Content */}
+                {/* Info Section */}
                 <div className="flex-1 min-w-0">
-                  {/* Added course.title here so text shows up */}
+                  {/* 2. ADDED TITLE HERE */}
                   <p className="text-xs font-bold text-purple-900 mb-2 leading-snug line-clamp-2">
-                    
+                   
                   </p>
 
                   <div className="flex gap-3 items-center flex-wrap">
@@ -86,3 +88,5 @@ export default function CourseCard() {
     </div>
   );
 }
+
+// ... ICONS remain same below ...

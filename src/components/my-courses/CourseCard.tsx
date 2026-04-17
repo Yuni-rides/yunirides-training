@@ -2,35 +2,48 @@
 
 import Link from 'next/link';
 
-// Updated type to match your constants (ID is a string like "module-1")
+// 1. Updated type to include videoUrl and ensure thumbnail is present
 type Course = {
   id: string | number;
   title?: string;
   duration?: string;
   status?: string;
   thumbnail: string;
+  videoUrl?: string; // Added for the background video
 };
 
 export default function CourseCard({ course }: { course: Course }) {
   return (
     <Link 
       href={`/my-courses/${course.id}`} 
-      className="block group"
+      className="block group h-full"
     >
-      <div className="rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all cursor-pointer border border-transparent hover:border-purple-200 h-full">
+      <div className="rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-md transition-all cursor-pointer border border-transparent hover:border-purple-200 h-full flex flex-col">
         
-        {/* Thumbnail Section */}
-        <div className="relative h-[140px] overflow-hidden">
-          <img
-            src={course.thumbnail}
-            alt={course.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
+        {/* Thumbnail/Video Section */}
+        <div className="relative h-[140px] overflow-hidden bg-gray-200">
+          {course.videoUrl ? (
+            <video
+              src={course.videoUrl}
+              poster={course.thumbnail}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          ) : (
+            <img
+              src={course.thumbnail}
+              alt={course.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          )}
 
-          {/* Overlay - darkened purple effect from Figma */}
+          {/* Overlay - darkened purple effect */}
           <div className="absolute inset-0 bg-[#2D1B69]/30 group-hover:bg-[#2D1B69]/10 transition-colors" />
 
-          {/* Play button */}
+          {/* Play button UI */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="bg-white/90 rounded-full w-8 h-8 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
               <svg width="10" height="12" viewBox="0 0 10 12" fill="none">
@@ -55,12 +68,11 @@ export default function CourseCard({ course }: { course: Course }) {
         </div>
 
         {/* Text Content */}
-        <div className="p-3">
+        <div className="p-3 flex-1 flex flex-col justify-between">
           <p className="text-[12px] font-bold text-[#1a1a2e] line-clamp-2 leading-snug group-hover:text-purple-700 transition-colors">
             {course.title || "Yunirides New Driver Training"}
           </p>
           
-          {/* Optional: Add status badge if it exists */}
           {course.status && (
             <div className="mt-2">
               <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${

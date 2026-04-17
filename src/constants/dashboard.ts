@@ -7,15 +7,13 @@ export const user = {
 export const courses = [
   {
     id: 1,
-   
     duration: "15 min",
     status: "Active",
     thumbnail: "/images/course4.png",
   },
   {
     id: 2,
-   
-    duration: "20 min",
+   duration: "20 min",
     status: "Not Started",
     thumbnail: "/images/course4.png",
   },

@@ -1,3 +1,4 @@
+"use client";
 export default function Header() {
   return (
     <div className="w-full bg-[#EFF2FF] rounded-xl px-6 py-4 flex items-center justify-between">
@@ -20,8 +21,6 @@ export default function Header() {
         </div>
       </div>
       
-
-
     </div>
   );
 }

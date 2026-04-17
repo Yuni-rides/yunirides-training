@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { courseModules } from "@/constants/dashboard"; //
+import { courseModules } from "@/constants/dashboard";
 import { LayoutGrid, ChevronDown } from "lucide-react";
-import Link from "next/link"; // Required for navigation
+import Link from "next/link"; 
 
 export default function CourseOverview() {
   const [selectedFilter, setSelectedFilter] = useState("All courses");
@@ -37,33 +37,39 @@ export default function CourseOverview() {
             <ChevronDown size={14} />
           </button>
 
-          <button className="flex items-center justify-center w-9 h-9 bg-[#EFF2FF] rounded-lg hover:bg-[#e0e5ff] transition">
+          <button className="flex items-center justify-center w-9 h-9 bg-white rounded-lg hover:bg-[#e0e5ff] transition shadow-sm">
             <LayoutGrid size={16} className="text-[#2D1B69]" />
           </button>
         </div>
       </div>
 
       {/* ── Course grid ── */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {courseModules.map((item) => (
-          /* Link connects Dashboard directly to your [courseId] folder */
           <Link 
             key={item.id} 
             href={`/my-courses/${item.id}`} 
             className="group block"
           >
-            <div className="rounded-4xl overflow-hidden shadow-sm hover:shadow-md transition bg-[#EFF2FF] cursor-pointer">
-              {/* Thumbnail */}
-             <div className="relative w-full aspect-[4/4] bg-purple-300 overflow-hidden">
+            {/* Added a white background and better rounding to make the card "pop" */}
+            <div className="rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all bg-white border border-transparent hover:border-purple-200 p-1">
+              {/* Thumbnail - Changed aspect ratio to 16/9 (video style) */}
+              <div className="relative w-full aspect-video bg-gray-200 overflow-hidden rounded-xl">
                 <img
                   src={item.thumbnail}
-                 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-               
-               
+                
+                
               </div>
 
+              {/* Added Title back so you can actually see what you are clicking */}
+              <div className="p-3">
+                <p className="text-[11px] font-bold text-[#1a1a2e] line-clamp-2 leading-tight">
+                 
+                </p>
+              </div>
             </div>
           </Link>
         ))}
