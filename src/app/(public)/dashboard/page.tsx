@@ -4,6 +4,9 @@ import CourseCard from "@/components/dashboard/CoursesSlider";
 import CourseOverview from "@/components/dashboard/CourseOverview";
 import CalendarCard from "@/components/dashboard/CalendarCard";
 import UpcomingEvents from "@/components/dashboard/UpcomingEvents";
+import { useLogout } from "@/hooks/useLogout";
+import UserMenu from "@/components/UserMenu";
+
 
 
 export default function DashboardPage() {

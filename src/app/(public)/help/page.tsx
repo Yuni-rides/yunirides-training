@@ -3,6 +3,9 @@
 import { MessageSquare, Phone, Mail, ChevronRight, Search } from "lucide-react";
 import HelpHeader from "@/components/help/HelpHeader";
 import FaqSection from "@/components/help/FaqSection";
+import { useLogout } from "@/hooks/useLogout";
+import UserMenu from "@/components/UserMenu";
+
 
 const FAQS = [
   "How do I access my training courses?",
@@ -14,10 +17,13 @@ const FAQS = [
 ];
 
 export default function HelpPage() {
+
+  const { handleLogout } = useLogout();
   return (
     <div className="flex-1 flex flex-col min-w-full bg-white">
       {/* Top Bar Section */}
       <HelpHeader />
+      
 
       <div className="px-8 pb-10">
         {/* Intro Text */}
