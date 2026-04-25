@@ -29,8 +29,6 @@ export default function DashboardPage() {
         </div>
       
       {/* MAIN GRID: 3 columns total */}
-     <div className="min-h-screen bg-[#FDFCF8] flex flex-col p-6 space-y-6">
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         
         {/* LEFT COLUMN: Modules (Stacked Vertically) */}
@@ -66,5 +64,5 @@ export default function DashboardPage() {
            </div>
            </div>
     </div>
-    </div> );
-    }
+
+  );}
