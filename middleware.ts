@@ -1,31 +1,23 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const PUBLIC_ROUTES = ["/login", "/forgot-password", "/register"];
-
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("access_token")?.value;
 
-  const isPublicRoute = PUBLIC_ROUTES.some((route) =>
-    pathname.startsWith(route)
-  );
+  const PUBLIC_ROUTES = ["/login", "/forgot-password", "/register"];
+  const isPublicRoute = PUBLIC_ROUTES.some((route) => pathname.startsWith(route));
 
+  // If NO token and NOT a public route, go to login
   if (!token && !isPublicRoute) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
+  // If YES token and IS a public route, go to dashboard
   if (token && isPublicRoute) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
-
-  if (token && isPublicRoute) {
-    return NextResponse.redirect(new URL("/my-courses", request.url));
   }
 
   return NextResponse.next();
 }
 
-export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|images|icons).*)"],
-}; 

@@ -89,4 +89,3 @@ export default function CourseCard() {
   );
 }
 
-// ... ICONS remain same below ...

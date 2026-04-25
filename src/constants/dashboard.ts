@@ -1,7 +1,6 @@
 export const user = {
   name: "James Clark",
-  email: "jamesc23@gmail.com",
-  avatar: "/images/profileimage.png",
+ avatar: "/images/profileimage.png",
 };
 
 export const courses = [
@@ -40,16 +39,7 @@ export const courseModules = [
    
     thumbnail: "/images/course2.png",
   },
-  {
-    id: 5,
-   
-    thumbnail: "/images/course1.png",
-  },
-  {
-    id: 6,
-   
-    thumbnail: "/images/course2.png",
-  },
+
 ];
 
 export const upcomingEvents = [
@@ -89,8 +79,5 @@ export const course: Course[] = [
   { id: 2, title: "Yunirides new driver training module 2", desc: "MODULE 2 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
   { id: 3, title: "Yunirides new driver training module 3", desc: "MODULE 3 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
   { id: 4, title: "Yunirides new driver training module 4", desc: "MODULE 4 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
-  { id: 5, title: "Yunirides new driver training module 5", desc: "MODULE 5 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
-  { id: 6, title: "Yunirides new driver training module 6", desc: "MODULE 6 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
-  { id: 7, title: "Yunirides new driver training module 7", desc: "MODULE 7 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
-  { id: 8, title: "Yunirides new driver training module 8", desc: "MODULE 8 WELCOME Purpose: The purpose of this module is...", status: "inactive", duration: "15 min" },
+ 
 ];

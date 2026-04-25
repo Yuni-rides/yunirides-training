@@ -1,20 +1,13 @@
 
 import Header from "@/components/dashboard/Header";
-import CourseCard from "@/components/dashboard/CoursesSlider";
-import CourseOverview from "@/components/dashboard/CourseOverview";
-import CalendarCard from "@/components/dashboard/CalendarCard";
-import UpcomingEvents from "@/components/dashboard/UpcomingEvents";
-import { useLogout } from "@/hooks/useLogout";
-import UserMenu from "@/components/UserMenu";
-
-
+import ModuleDetailedCard from "@/components/dashboard/ModuleDetailedCard";
+import CombinedOverviewPanel from "@/components/dashboard/CombinedOverviewPanel";
 
 export default function DashboardPage() {
   return (
+    
     <div className="flex h-screen bg-[white]">
-   
-
-      <div className="flex-1 p-6 space-y-6 overflow-y-auto">
+    <div className="flex-1 p-6 space-y-6 overflow-y-auto">
         <Header />
 
         {/* Banner */}
@@ -34,22 +27,44 @@ export default function DashboardPage() {
             className="w-150 rounded-lg"
           />
         </div>
-
-        {/* Middle */}
-        <div className="grid grid-cols-3 gap-6">
-          <div className="col-span-2 space-y-6">
-            <CourseCard />
-            <CourseOverview />
-          </div>
-
-          <div className="space-y-6">
-            <CalendarCard />
-            <UpcomingEvents />
-          </div>
-        </div>
-        
-      </div>
       
+      {/* MAIN GRID: 3 columns total */}
+     <div className="min-h-screen bg-[#FDFCF8] flex flex-col p-6 space-y-6">
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        
+        {/* LEFT COLUMN: Modules (Stacked Vertically) */}
+      {/* Column 2 */}
+    <div className="flex flex-col gap-3">
+      <ModuleDetailedCard
+        moduleNumber="Module 1"
+        title="Title goes here."
+        description="Simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley."
+        buttonText="Start"
+        buttonVariant="primary"
+        src="/images/child.png"
+      />
+      <ModuleDetailedCard
+        moduleNumber="Module 2"
+        title="Title goes here."
+        description="Simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley."
+        buttonText="Start"
+        buttonVariant="outline"
+        src="/images/child.png"
+      />
     </div>
-  );
-}
+
+        {/* RIGHT COLUMN: The Overview Panel */}
+      
+         :
+<div className="grid grid-cols-[1fr_300px] gap-6 items-start">
+  
+  {/* RIGHT: overview — full right side */}
+  <CombinedOverviewPanel />
+
+</div>
+           </div>
+           </div>
+    </div>
+    </div> );
+    }

@@ -1,5 +1,4 @@
 "use client";
-import React from 'react';
 import { ChevronLeft, Play, Check, Award, Clock } from 'lucide-react';
 import Link from 'next/link';
 

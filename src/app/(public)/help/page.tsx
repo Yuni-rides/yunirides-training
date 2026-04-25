@@ -4,7 +4,6 @@ import { MessageSquare, Phone, Mail, ChevronRight, Search } from "lucide-react";
 import HelpHeader from "@/components/help/HelpHeader";
 import FaqSection from "@/components/help/FaqSection";
 import { useLogout } from "@/hooks/useLogout";
-import UserMenu from "@/components/UserMenu";
 
 
 const FAQS = [
@@ -84,13 +83,13 @@ export default function HelpPage() {
   {/* Support Hours List */}
   <div className="mb-6">
     <h4 className="text-[13px] font-bold text-black mb-1">Support Hours</h4>
-    <ul className="text-[11px] text-gray-600 space-y-1">
+    <ul className="text-[11px] font-bold text-black 600 space-y-1">
       <li className="flex items-center gap-2">
-        <span className="w-1 h-1 bg-gray-800 rounded-full"></span>
+        <span className="w-1 h-1  bg-gray-800 rounded-full "></span>
         Monday to Friday.
       </li>
       <li className="flex items-center gap-2">
-        <span className="w-1 h-1 bg-gray-800 rounded-full"></span>
+        <span className="w-1 h-1  bg-gray-800 rounded-full "></span>
         9AM - 6PM
       </li>
     </ul>
