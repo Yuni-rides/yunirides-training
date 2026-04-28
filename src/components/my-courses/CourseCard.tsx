@@ -12,6 +12,7 @@ type Course = {
   videoUrl?: string; // Added for the background video
 };
 
+
 export default function CourseCard({ course }: { course: Course }) {
   return (
     <Link 
@@ -31,6 +32,7 @@ export default function CourseCard({ course }: { course: Course }) {
               loop
               playsInline
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              
             />
           ) : (
             <img
@@ -39,6 +41,7 @@ export default function CourseCard({ course }: { course: Course }) {
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
           )}
+          
 
           {/* Overlay - darkened purple effect */}
           <div className="absolute inset-0 bg-[#2D1B69]/30 group-hover:bg-[#2D1B69]/10 transition-colors" />

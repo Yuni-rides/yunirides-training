@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Search, Grid, BarChart2, ChevronDown, Monitor } from "lucide-react"; 
 import CourseCard from "@/components/my-courses/CourseCard";
 import { courses } from "@/constants/dashboard";
-import { cn } from "@/lib/utils";
 import UserMenu from "@/components/UserMenu"; 
 
 const TABS = [

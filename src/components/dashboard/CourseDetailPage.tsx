@@ -1,8 +1,35 @@
 "use client";
 import { ChevronLeft, Play, Check, Award, Clock } from 'lucide-react';
 import Link from 'next/link';
+import axios from 'axios';
+import VideoPlayer from '@/components/training/VideoPlayer';
+import React, { useState} from 'react';
 
 export default function CourseDetailPage({ courseId }: { courseId: string }) {
+  
+   const driverId = "1"; 
+   const [lastWatched, setLastWatched] = useState(0);
+
+  // 2. Progress Save function
+// Debug karne ke liye console mein dekhein token aa bhi raha hai ya nahi
+
+const handleProgressSave = async (seconds: number) => {
+  const token = localStorage.getItem('token');
+  try {
+    const res = await axios.patch(
+      `http://localhost:5000/api/drivers/${driverId}/training-progress`,
+      { seconds: Math.floor(seconds) },
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    );
+    console.log("Success:", res.data);
+  } catch (err: any) {
+    // Isse exact backend ka gussa pata chalega
+    console.log("Detailed Backend Error:", err.response?.data);
+  }
+};
+
   const modules = [
     { id: '01', title: 'Introduction to Yunirides', time: '1min', completed: true },
     { id: '02', title: 'Driver responsibilities', time: '5min', completed: false },
@@ -22,30 +49,26 @@ export default function CourseDetailPage({ courseId }: { courseId: string }) {
         </Link>
         <div>
           <p className="text-xs font-medium text-purple-600 uppercase tracking-wider">My courses</p>
-          <h1 className="text-xl font-bold text-slate-800">Yunirides new driver training module 1</h1>
+          <h1 className="text-xl font-bold text-slate-800">Yunirides new driver training module {courseId}</h1>
         </div>
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
-        {/* LEFT COLUMN: Video & Info */}
-        <div className="xl:col-span-8 space-y-6">
-          {/* Video Player Mockup */}
-          <div className="group relative aspect-video bg-slate-900 rounded-[32px] overflow-hidden shadow-2xl border-[6px] border-white">
-            <img 
-              src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1200" 
-              alt="Course Video" 
-              className="w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <button className="w-20 h-20 bg-white/95 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform text-purple-700">
-                <Play className="w-10 h-10 fill-current" />
-              </button>
-            </div>
-            {/* Custom Video Controls Bar Placeholder */}
-            <div className="absolute bottom-0 inset-x-0 h-1.5 bg-gray-300/30">
-              <div className="h-full bg-purple-500 w-[40%]" />
-            </div>
-          </div>
+      
+      {/* LEFT COLUMN: Video & Info */}
+<div className="xl:col-span-8 space-y-6">
+  
+  {/* Is container ko height aur background de kar check karein */}
+  <div className="relative aspect-video bg-slate-900 rounded-[32px] overflow-hidden shadow-2xl border-[6px] border-white min-h-[400px]">
+     <VideoPlayer 
+        videoUrl="/videos/test-training.mp4" 
+        lastSavedTime={lastWatched} 
+        onProgressUpdate={handleProgressSave} 
+     />
+
+    
+  </div>
+  
 
           {/* Course Content */}
           <div className="bg-white p-10 rounded-[32px] shadow-sm border border-slate-100">

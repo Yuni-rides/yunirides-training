@@ -9,6 +9,8 @@ interface ModuleProps {
   buttonText: string;
   buttonVariant: "primary" | "secondary" | "outline";
   src: string;
+  onClick?: () => void;
+ 
 }
 
 export default function ModuleDetailedCard({
@@ -18,10 +20,12 @@ export default function ModuleDetailedCard({
   buttonText,
   buttonVariant,
   src,
+  onClick, // <--- Destructure onClick here
+  
 }: ModuleProps) {
   return (
     <div className="bg-white rounded-2xl border border-[#e8eaf6] overflow-hidden flex items-stretch shadow-sm w-full">
-
+   
    {/* ── LEFT: Purple tinted image ── */}
 <div
   className="flex-shrink-0 relative overflow-hidden rounded-xl"
@@ -57,6 +61,7 @@ export default function ModuleDetailedCard({
 
         {/* ── Button ── */}
         <button
+        onClick={onClick}
           className={cn(
             "w-full py-2.5 rounded-xl text-[12px] font-semibold transition mt-3",
             buttonVariant === "primary"
