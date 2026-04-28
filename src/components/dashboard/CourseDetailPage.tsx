@@ -1,9 +1,11 @@
 "use client";
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
-import VideoPlayer from '@/components/training/VideoPlayer'; // Path check karlein
-import { ChevronLeft, Check, Award, Clock } from 'lucide-react'; // Clock add kiya hai
+import dynamic from 'next/dynamic';
+import { ChevronLeft, Clock, Check, Award } from 'lucide-react';
+
+const VideoPlayer = dynamic(() => import('@/components/training/VideoPlayer'), { ssr: false });
 
 const modules = [
   { id: '01', title: 'Introduction to Yunirides', time: '1min', completed: true },
@@ -16,59 +18,50 @@ const modules = [
 ];
 
 export default function CourseDetailPage({ courseId }: { courseId: string }) {
-  const [user, setUser] = useState<any>(null);
+  const [isClient, setIsClient] = useState(false);
   const [driverId, setDriverId] = useState<string | null>(null);
   const [lastWatchedTime, setLastWatchedTime] = useState(0);
-  const playerRef = useRef<any>(null);
 
-useEffect(() => {
-    // 1. LocalStorage se user uthayein
-    const savedUserStr = localStorage.getItem('user');
-    
-    if (savedUserStr) {
-      const savedUser = JSON.parse(savedUserStr);
-      const id = savedUser?.id || savedUser?.driverId;
-      
-      setUser(savedUser);
-      setDriverId(id);
-      console.log("User found:", id);
-    } else {
-      // 2. Sirf tab login par bhejein agar waqai data missing ho
-      console.log("No user in localStorage, redirecting...");
-      // window.location.href = '/login'; // <--- Abhi ke liye isay comment kar dein check karne ke liye
+  useEffect(() => {
+    setIsClient(true);
+    try {
+      const savedUserStr = localStorage.getItem('user');
+      if (savedUserStr) {
+        const savedUser = JSON.parse(savedUserStr);
+        setDriverId(savedUser?.id || savedUser?.driverId || null);
+      }
+    } catch (e) {
+      console.log("LocalStorage error ignored");
     }
   }, []);
 
   const handleProgressUpdate = (seconds: number) => {
-    if (seconds > lastWatchedTime + 2) {
-      console.log("Anti-Skip: Seek blocked");
-      return;
-    }
     setLastWatchedTime(seconds);
+    // Backend call yahan se hata di hai taake live crash na ho
   };
 
   const handleVideoEnded = async () => {
-    const token = localStorage.getItem('token');
-    if (!driverId) return;
+    const isLocal = typeof window !== 'undefined' && window.location.hostname === 'localhost';
+    
+    // Agar Vercel par hain toh backend sync skip karein
+    if (!isLocal || !driverId) {
+      console.log("Live mode: Skipping sync to prevent crash.");
+      return; 
+    }
 
     try {
-      console.log("Video Finished! Syncing with Backend...");
+      const token = localStorage.getItem('token');
       await axios.patch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/drivers/${driverId}/training-progress`,
-        { 
-          courseId: courseId,
-          status: 'COMPLETED',
-          percentage: 100 
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` }
-        }
+        `http://localhost:5000/api/drivers/${driverId}/training-progress`,
+        { courseId, status: 'COMPLETED', percentage: 100 },
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log("Progress saved successfully");
-    } catch (err: any) {
-      console.error("Backend Sync Error:", err.response?.data);
+    } catch (err) {
+      console.log("Backend not reachable on local");
     }
   };
+
+  if (!isClient) return null;
 
   return (
     <div className="p-4 lg:p-8 max-w-[1400px] mx-auto">
@@ -79,7 +72,7 @@ useEffect(() => {
         </Link>
         <div>
           <p className="text-xs font-medium text-purple-600 uppercase tracking-wider">My courses</p>
-          <h1 className="text-xl font-bold text-slate-800">Yunirides new driver training module {courseId}</h1>
+          <h1 className="text-xl font-bold text-slate-800">Yunirides training module {courseId}</h1>
         </div>
       </div>
 
@@ -97,10 +90,9 @@ useEffect(() => {
 
           {/* Course Content Text */}
           <div className="bg-white p-10 rounded-[32px] shadow-sm border border-slate-100">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">Course 1 welcome to Yunirides</h2>
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Welcome to Yunirides Training</h2>
             <div className="space-y-4 text-slate-600 leading-relaxed">
-              <p>Welcome to the Yunirides Driver Training Program. This course introduces you to our mission...</p>
-              <p>At Yunirides, every driver plays a vital role in ensuring that students arrive safely...</p>
+              <p>Welcome to the official training program. Every driver plays a vital role in our mission.</p>
               <div className="pt-4">
                 <h3 className="font-bold text-slate-900 mb-2">In this course you will learn:</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
@@ -142,14 +134,6 @@ useEffect(() => {
             <button className="w-full mt-8 py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-2xl font-bold shadow-lg shadow-purple-200 transition-all flex items-center justify-center gap-2 group">
               <Award className="w-5 h-5 group-hover:rotate-12 transition-transform" />
               Get certificate
-            </button>
-          </div>
-          
-          <div className="bg-gradient-to-br from-purple-600 to-indigo-700 rounded-[32px] p-6 text-white text-center">
-            <h4 className="font-bold mb-2 text-lg">Need help?</h4>
-            <p className="text-sm text-purple-100 mb-4">Our support team is available 24/7 for driver assistance.</p>
-            <button className="bg-white/20 hover:bg-white/30 transition-colors w-full py-2 rounded-xl text-sm font-semibold backdrop-blur-md">
-              Contact Support
             </button>
           </div>
         </div>
