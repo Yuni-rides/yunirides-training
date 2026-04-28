@@ -1,48 +1,78 @@
 "use client";
-import { ChevronLeft, Play, Check, Award, Clock } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import axios from 'axios';
-import VideoPlayer from '@/components/training/VideoPlayer';
-import React, { useState} from 'react';
+import VideoPlayer from '@/components/training/VideoPlayer'; // Path check karlein
+import { ChevronLeft, Check, Award, Clock } from 'lucide-react'; // Clock add kiya hai
+
+const modules = [
+  { id: '01', title: 'Introduction to Yunirides', time: '1min', completed: true },
+  { id: '02', title: 'Driver responsibilities', time: '5min', completed: false },
+  { id: '03', title: 'Special needs transportation', time: '2min', completed: false },
+  { id: '04', title: 'McKinney-vento & foster youth support', time: '3min', completed: false },
+  { id: '05', title: 'Defensive driving', time: '4min', completed: false },
+  { id: '06', title: 'Vehicle inspection', time: '4min', completed: false },
+  { id: '07', title: 'Emergency Procedures', time: '3min', completed: false },
+];
 
 export default function CourseDetailPage({ courseId }: { courseId: string }) {
-  
-   const driverId = "1"; 
-   const [lastWatched, setLastWatched] = useState(0);
+  const [user, setUser] = useState<any>(null);
+  const [driverId, setDriverId] = useState<string | null>(null);
+  const [lastWatchedTime, setLastWatchedTime] = useState(0);
+  const playerRef = useRef<any>(null);
 
-  // 2. Progress Save function
-// Debug karne ke liye console mein dekhein token aa bhi raha hai ya nahi
+useEffect(() => {
+    // 1. LocalStorage se user uthayein
+    const savedUserStr = localStorage.getItem('user');
+    
+    if (savedUserStr) {
+      const savedUser = JSON.parse(savedUserStr);
+      const id = savedUser?.id || savedUser?.driverId;
+      
+      setUser(savedUser);
+      setDriverId(id);
+      console.log("User found:", id);
+    } else {
+      // 2. Sirf tab login par bhejein agar waqai data missing ho
+      console.log("No user in localStorage, redirecting...");
+      // window.location.href = '/login'; // <--- Abhi ke liye isay comment kar dein check karne ke liye
+    }
+  }, []);
 
-const handleProgressSave = async (seconds: number) => {
-  const token = localStorage.getItem('token');
-  try {
-    const res = await axios.patch(
-      `http://localhost:5000/api/drivers/${driverId}/training-progress`,
-      { seconds: Math.floor(seconds) },
-      {
-        headers: { Authorization: `Bearer ${token}` }
-      }
-    );
-    console.log("Success:", res.data);
-  } catch (err: any) {
-    // Isse exact backend ka gussa pata chalega
-    console.log("Detailed Backend Error:", err.response?.data);
-  }
-};
+  const handleProgressUpdate = (seconds: number) => {
+    if (seconds > lastWatchedTime + 2) {
+      console.log("Anti-Skip: Seek blocked");
+      return;
+    }
+    setLastWatchedTime(seconds);
+  };
 
-  const modules = [
-    { id: '01', title: 'Introduction to Yunirides', time: '1min', completed: true },
-    { id: '02', title: 'Driver responsibilities', time: '5min', completed: false },
-    { id: '03', title: 'Special needs transportation', time: '2min', completed: false },
-    { id: '04', title: 'McKinney-vento & foster youth support', time: '3min', completed: false },
-    { id: '05', title: 'Defensive driving', time: '4min', completed: false },
-    { id: '06', title: 'Vehicle inspection', time: '4min', completed: false },
-    { id: '07', title: 'Emergency Procedures', time: '3min', completed: false },
-  ];
+  const handleVideoEnded = async () => {
+    const token = localStorage.getItem('token');
+    if (!driverId) return;
+
+    try {
+      console.log("Video Finished! Syncing with Backend...");
+      await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}/api/drivers/${driverId}/training-progress`,
+        { 
+          courseId: courseId,
+          status: 'COMPLETED',
+          percentage: 100 
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      console.log("Progress saved successfully");
+    } catch (err: any) {
+      console.error("Backend Sync Error:", err.response?.data);
+    }
+  };
 
   return (
     <div className="p-4 lg:p-8 max-w-[1400px] mx-auto">
-      {/* Header / Breadcrumb */}
+      {/* Header */}
       <div className="flex items-center gap-4 mb-8">
         <Link href="/my-courses" className="p-2 hover:bg-gray-100 rounded-full transition bg-white shadow-sm">
           <ChevronLeft className="w-6 h-6 text-gray-600" />
@@ -54,35 +84,23 @@ const handleProgressSave = async (seconds: number) => {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
-      
-      {/* LEFT COLUMN: Video & Info */}
-<div className="xl:col-span-8 space-y-6">
-  
-  {/* Is container ko height aur background de kar check karein */}
-  <div className="relative aspect-video bg-slate-900 rounded-[32px] overflow-hidden shadow-2xl border-[6px] border-white min-h-[400px]">
-     <VideoPlayer 
-        videoUrl="/videos/test-training.mp4" 
-        lastSavedTime={lastWatched} 
-        onProgressUpdate={handleProgressSave} 
-     />
+        {/* LEFT COLUMN */}
+        <div className="xl:col-span-8 space-y-6">
+          <div className="relative aspect-video bg-slate-900 rounded-[32px] overflow-hidden shadow-2xl border-[6px] border-white min-h-[400px]">
+            <VideoPlayer 
+              videoUrl="/videos/test-training.mp4" 
+              lastSavedTime={lastWatchedTime} 
+              onProgressUpdate={handleProgressUpdate} 
+              onVideoEnd={handleVideoEnded}
+            />
+          </div>
 
-    
-  </div>
-  
-
-          {/* Course Content */}
+          {/* Course Content Text */}
           <div className="bg-white p-10 rounded-[32px] shadow-sm border border-slate-100">
             <h2 className="text-2xl font-bold text-slate-900 mb-6">Course 1 welcome to Yunirides</h2>
             <div className="space-y-4 text-slate-600 leading-relaxed">
-              <p>
-                Welcome to the Yunirides Driver Training Program. This course introduces you to our mission, 
-                safety standards, and the escape-ability that comes with transporting children and youth in our communities.
-              </p>
-              <p>
-                At Yunirides, every driver plays a vital role in ensuring that students arrive safely, comfortably, 
-                and on time. Our service goes beyond transportation — we provide care, trust, and reliability 
-                for families, schools, and the <strong>children we serve</strong>.
-              </p>
+              <p>Welcome to the Yunirides Driver Training Program. This course introduces you to our mission...</p>
+              <p>At Yunirides, every driver plays a vital role in ensuring that students arrive safely...</p>
               <div className="pt-4">
                 <h3 className="font-bold text-slate-900 mb-2">In this course you will learn:</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
@@ -94,7 +112,7 @@ const handleProgressSave = async (seconds: number) => {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Sidebar List */}
+        {/* RIGHT COLUMN: Sidebar */}
         <div className="xl:col-span-4 space-y-4">
           <div className="bg-white rounded-[32px] p-6 shadow-sm border border-slate-100">
             <h3 className="text-lg font-bold text-slate-800 mb-6 px-2">Course Modules</h3>
@@ -127,7 +145,6 @@ const handleProgressSave = async (seconds: number) => {
             </button>
           </div>
           
-          {/* Help Card from Figma */}
           <div className="bg-gradient-to-br from-purple-600 to-indigo-700 rounded-[32px] p-6 text-white text-center">
             <h4 className="font-bold mb-2 text-lg">Need help?</h4>
             <p className="text-sm text-purple-100 mb-4">Our support team is available 24/7 for driver assistance.</p>

@@ -1,39 +1,45 @@
 "use client";
-
 import React, { useRef, useState, useEffect } from 'react';
 
 interface Props {
   videoUrl: string;
   lastSavedTime: number;
   onProgressUpdate: (seconds: number) => void;
+  onVideoEnd: () => void;
 }
 
-const VideoPlayer: React.FC<Props> = ({ videoUrl, lastSavedTime, onProgressUpdate }) => {
+const VideoPlayer: React.FC<Props> = ({ videoUrl, lastSavedTime, onProgressUpdate, onVideoEnd }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [maxTimeWatched, setMaxTimeWatched] = useState(lastSavedTime);
+  
+  // useRef use karenge max time track karne ke liye taake re-render na ho (No Glitch)
+  const maxTimeRef = useRef(lastSavedTime);
+  const isInitialLoad = useRef(true);
 
-  // Jab video load ho jaye toh purani position par le jao
   useEffect(() => {
-    if (videoRef.current && lastSavedTime > 0) {
+    if (videoRef.current && isInitialLoad.current) {
       videoRef.current.currentTime = lastSavedTime;
+      maxTimeRef.current = lastSavedTime;
+      isInitialLoad.current = false;
     }
   }, [lastSavedTime]);
 
   const handleTimeUpdate = () => {
-    if (!videoRef.current) return;
+    const video = videoRef.current;
+    if (!video) return;
 
-    const currentTime = videoRef.current.currentTime;
+    const currentTime = video.currentTime;
 
-    // 1. ANTI-SKIP LOGIC: Agar user 3 sec se zyada aage jump kare
-    if (currentTime > maxTimeWatched + 3) {
-      videoRef.current.currentTime = maxTimeWatched;
+    // 1. ANTI-SKIP LOGIC: Agar jump karein toh foran piche phenk dein
+    if (currentTime > maxTimeRef.current + 2) {
+      video.currentTime = maxTimeRef.current;
     } else {
-      if (currentTime > maxTimeWatched) {
-        setMaxTimeWatched(currentTime);
+      // Agar normal chal rahi hai, toh progress update karein
+      if (currentTime > maxTimeRef.current) {
+        maxTimeRef.current = currentTime;
         
-        // 2. Har 5 seconds baad progress save karein
-        if (Math.floor(currentTime) % 5 === 0 && Math.floor(currentTime) !== 0) {
-          onProgressUpdate(Math.floor(currentTime));
+        // Parent ko har second update bhejte rahein lekin state slow update karein
+        if (Math.floor(currentTime) % 2 === 0) {
+           onProgressUpdate(currentTime);
         }
       }
     }
@@ -49,6 +55,9 @@ const VideoPlayer: React.FC<Props> = ({ videoUrl, lastSavedTime, onProgressUpdat
         controlsList="nodownload"
         onContextMenu={(e) => e.preventDefault()}
         onTimeUpdate={handleTimeUpdate}
+        onEnded={onVideoEnd}
+        // Is se video smooth chalti hai
+        preload="auto"
       >
         Your browser does not support the video tag.
       </video>
