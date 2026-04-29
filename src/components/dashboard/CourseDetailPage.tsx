@@ -39,28 +39,38 @@ export default function CourseDetailPage({ courseId }: { courseId: string }) {
     setLastWatchedTime(seconds);
     // Backend call yahan se hata di hai taake live crash na ho
   };
-
-  const handleVideoEnded = async () => {
-    const isLocal = typeof window !== 'undefined' && window.location.hostname === 'localhost';
-    
     // Agar Vercel par hain toh backend sync skip karein
-    if (!isLocal || !driverId) {
-      console.log("Live mode: Skipping sync to prevent crash.");
-      return; 
-    }
+    const handleVideoEnded = async () => {
+  // 1. Pehle token check karein (Login check)
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.log("User not logged in. Skipping sync.");
+    return;
+  }
 
-    try {
-      const token = localStorage.getItem('token');
-      await axios.patch(
-        `http://localhost:5000/api/drivers/${driverId}/training-progress`,
-        { courseId, status: 'COMPLETED', percentage: 100 },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-    } catch (err) {
-      console.log("Backend not reachable on local");
-    }
-  };
+  // 2. Driver ID ko optional rakhein
+  // Agar driverId nahi hai, toh crash karne ki bajaye bas return kar jaye
+  if (!driverId) {
+    console.warn("Login successful but Driver ID not found yet. Progress won't sync to DB.");
+    return; 
+  }
 
+  // 3. Request sirf tab jaye jab hum Localhost par hon (Vercel safety)
+  const isLocal = window.location.hostname === 'localhost';
+if (!token || !driverId) return;
+
+  try {
+    // Localhost wala URL hata kar live wala dal dein
+    await axios.patch(
+      `https://api.yunirides.com/api/drivers/${driverId}/training-progress`,
+      { courseId, status: 'COMPLETED', percentage: 100 },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    console.log("Progress synced to live server!");
+  } catch (err) {
+    console.log("Live sync failed", err);
+  }
+};
   if (!isClient) return null;
 
   return (

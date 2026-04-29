@@ -34,26 +34,42 @@ export default function LoginPage() {
     defaultValues: { rememberMe: true },
   });
 
-  const onSubmit = async (data: LoginFormData) => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await authApi.login(data);
-      setAuth(response.user, response.accessToken);
-      if (data.rememberMe) {
-        localStorage.setItem("access_token", response.accessToken);
-      } else {
-        sessionStorage.setItem("access_token", response.accessToken);
-      }
-      router.push("/dashboard");
-    } catch (err: unknown) {
-      const message =
-        err instanceof Error ? err.message : "Invalid credentials";
-      setError(message);
-    } finally {
-      setLoading(false);
+// Is function ko apne LoginPage.tsx mein replace kar lein
+const onSubmit = async (data: LoginFormData) => {
+  try {
+    setLoading(true);
+    setError(null);
+
+    // Ye authApi.login ab live URL use karega (neeche api file check karein)
+    const response = await authApi.login({
+      username: data.username,
+      password: data.password,
+    });
+
+    // 1. Store state (Zustand)
+    setAuth(response.user, response.accessToken);
+
+    // 2. Save for persistence (Session/LocalStorage)
+    // Zaroori: 'user' object ko stringify karke save karein taake courses page use kar sakay
+    localStorage.setItem("user", JSON.stringify(response.user));
+    
+    if (data.rememberMe) {
+      localStorage.setItem("access_token", response.accessToken);
+    } else {
+      sessionStorage.setItem("access_token", response.accessToken);
     }
-  };
+
+    // 3. Success! Redirect to dashboard
+    router.push("/dashboard");
+    
+  } catch (err: any) {
+    // API error handling
+    const message = err.response?.data?.message || err.message || "Invalid credentials";
+    setError(message);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="flex min-h-screen w-full">

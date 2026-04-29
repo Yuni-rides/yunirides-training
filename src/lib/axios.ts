@@ -1,14 +1,18 @@
-// lib/axios.ts (or similar)
 import axios from "axios";
 
+// 1. Fallback URL zaroor rakhein taake agar env file miss ho jaye toh app crash na ho
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.yunirides.com/api";
+
 const apiClient = axios.create({
-baseURL: process.env.NEXT_PUBLIC_API_URL
-  
-});
-  export const trainingClient = axios.create({
- baseURL: "http://localhost:5000/api",
+  baseURL: BASE_URL
 });
 
+// 2. Training client hamesha live api par hi rahega (Good!)
+export const trainingClient = axios.create({
+  baseURL: "https://api.yunirides.com/api",
+});
+
+// Interceptor logic for apiClient
 apiClient.interceptors.request.use((config) => {
   const token =
     localStorage.getItem("access_token") ||
@@ -20,13 +24,17 @@ apiClient.interceptors.request.use((config) => {
 
   return config;
 });
-// Interceptor for Local Training Client (Yahan bhi token bhej dete hain agar local backend ko chahiye ho)
+
+// Interceptor logic for trainingClient
 trainingClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem("access_token") || sessionStorage.getItem("access_token");
+  const token = 
+    localStorage.getItem("access_token") || 
+    sessionStorage.getItem("access_token");
+    
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
-}); 
+});
 
 export default apiClient;
