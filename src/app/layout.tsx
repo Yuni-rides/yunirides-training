@@ -8,7 +8,7 @@ const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Yuni Rides Training",
-  description: "Senior Developer Training Portal",
+  description: "Training Portal",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

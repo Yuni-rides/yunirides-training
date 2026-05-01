@@ -7,11 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "echo \"No tests specified\" && exit 0"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
-    "axios": "^1.15.0",
+    "axios": "^1.15.2",
     "chart.js": "^4.5.1",
     "clsx": "^2.1.1",
     "js-cookie": "^3.0.5",

@@ -19,7 +19,6 @@ const loginSchema = z.object({
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
-
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const { setAuth, setLoading, setError, isLoading, error } = useAuthStore();
@@ -33,14 +32,31 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
     defaultValues: { rememberMe: true },
   });
-
-// Is function ko apne LoginPage.tsx mein replace kar lein
+ 
 const onSubmit = async (data: LoginFormData) => {
+  if (process.env.NEXT_PUBLIC_DEV_MODE === 'true') {
+    console.warn("⚠️ DEV MODE ACTIVE: Bypassing authentication");
+    const dummyUser = { 
+      id: "1", 
+      firstName: "John", 
+      lastName: "Dev", 
+      username: "fatima_dev", 
+      email: "john5@gmail.com", 
+      role: "DRIVER" 
+    } as any;
+    
+    setAuth(dummyUser, "dev-token-123");
+    localStorage.setItem("user", JSON.stringify(dummyUser));
+    localStorage.setItem("access_token", "dev-token-123");
+    
+    router.push("/dashboard");
+    return; // Code yahan se ruk jayega aur dashboard par chala jayega
+  }
   try {
     setLoading(true);
     setError(null);
 
-    // Ye authApi.login ab live URL use karega (neeche api file check karein)
+    // authApi.login ab live URL 
     const response = await authApi.login({
       username: data.username,
       password: data.password,
@@ -62,14 +78,19 @@ const onSubmit = async (data: LoginFormData) => {
     // 3. Success! Redirect to dashboard
     router.push("/dashboard");
     
-  } catch (err: any) {
-    // API error handling
-    const message = err.response?.data?.message || err.message || "Invalid credentials";
-    setError(message);
-  } finally {
-    setLoading(false);
-  }
-};
+ } catch (err: unknown) {
+  // TypeScript ko batayein ke yeh Axios error ho sakta hai
+  const axiosError = err as { 
+    response?: { data?: { message?: string } }; 
+    message?: string 
+  };
+
+  const message = axiosError.response?.data?.message || axiosError.message || "Invalid credentials";
+  setError(message);
+} finally {
+  setLoading(false);
+}}
+
 
   return (
     <div className="flex min-h-screen w-full">

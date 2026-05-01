@@ -9,7 +9,7 @@ const apiClient = axios.create({
 
 // 2. Training client hamesha live api par hi rahega (Good!)
 export const trainingClient = axios.create({
-  baseURL: "https://api.yunirides.com/api",
+ baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000",
 });
 
 // Interceptor logic for apiClient

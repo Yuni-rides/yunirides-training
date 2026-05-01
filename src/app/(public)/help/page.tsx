@@ -17,7 +17,7 @@ const FAQS = [
 
 export default function HelpPage() {
 
-  const { handleLogout } = useLogout();
+  const{} = useLogout();
   return (
     <div className="flex-1 flex flex-col min-w-full bg-white">
       {/* Top Bar Section */}
