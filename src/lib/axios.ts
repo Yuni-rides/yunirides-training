@@ -11,8 +11,9 @@ const apiClient = axios.create({
 export const trainingClient = axios.create({
  //baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000",
   baseURL: "https://authentic-thirstily-shanty.ngrok-free.dev/api",
-  headers: {
-    "ngrok-skip-browser-warning": "69420", // Ye line ngrok ko kahegi ke warning page mat dikhao
+ headers: {
+    "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "true", // Ye line browser ko bypass karne degi
   },
 });
 
