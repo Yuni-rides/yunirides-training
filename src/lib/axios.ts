@@ -10,8 +10,8 @@ const apiClient = axios.create({
 // 2. Training client hamesha live api par hi rahega (Good!)
 export const trainingClient = axios.create({
  //baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000",
-  baseURL: "https://authentic-thirstily-shanty.ngrok-free.dev/api",
- headers: {
+  //baseURL: "https://authentic-thirstily-shanty.ngrok-free.dev/api",
+  headers: {
     "Content-Type": "application/json",
     "ngrok-skip-browser-warning": "true", // Ye line browser ko bypass karne degi
   },
