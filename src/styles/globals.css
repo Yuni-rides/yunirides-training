@@ -1,9 +1,41 @@
 @import "tailwindcss";
 
 
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
+} */
+
+:root {
+  --background: #EFF2FF; /* Base background */
+  --foreground: #171717;
+
+  /* =========================
+     BASE THEME (EXISTING & FIXES)
+  ========================= */
+  --color-primary: #822C89;       /* ✅ logo purple */
+  --color-primary-light: #F3E8FF;
+  --color-dashboard-bg: #EFF2FF;  /* ✅ same as figma */
+  --color-card: #FFFFFF;
+  --color-header: #E6E8F5;        /* ✅ top bar color */
+  --color-muted: #6B7280;
+
+  /* ── SHADCN / RADIX TOAST VARIABLES ── */
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 215 20.2% 65.1%;
+  
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  
+  /* Default / Success Toast Fallback */
+  --toast-bg: #FFFFFF;
+  --toast-fg: #171717;
+  --toast-border: #E6E8F5;
+
+  /* Destructive Toast (for Login Failed) */
+  --destructive: #0f172a; 
+  --destructive-foreground: #f8fafc;
 }
 
 @theme inline {

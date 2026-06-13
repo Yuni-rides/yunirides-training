@@ -1,35 +1,56 @@
-export interface LoginRequest {
-  email: string;
-  username: string;
-  password: string;
-  rememberMe?: boolean;
-}
-
-export interface LoginResponse {
-  accessToken: string;
-  user: AuthUser;
-}
-
-export interface AuthUser {
+export type AuthUser = {
   id: string;
-  username: string;
   email: string;
   firstName: string;
   lastName: string;
-  role: "driver" | "admin";
-  avatar?: string;
-}
+  role: string;
+  company: {
+    id: string;
+    name: string;
+    status: string;
+  } | null;
+};
 
-export interface AuthState {
-  user: AuthUser | null;
-  accessToken: string | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-  error: string | null;
-}
-
-export type LoginFormData = {
-  username: string;
+export type LoginDto = {
+  email: string;
   password: string;
-  rememberMe?: boolean;
+  fcmToken?: string;
+};
+
+export type LoginResponse = {
+  status: boolean;
+  code: string;
+  message: string;
+  data?: {
+    status: boolean;
+    accessToken: string;
+    user: {
+      id: string;
+      firstName: string;
+      lastName: string;
+      email: string;
+      role: {
+        code: string;
+        permissions: {
+          allowed: boolean;
+          feature: { code: string };
+        }[];
+      };
+      company: {
+        id: string;
+        name: string;
+        status: string;
+      } | null;
+    };
+  };
+};
+
+export type SetPasswordDto = {
+  token: string;
+  password: string;
+};
+
+export type SetPasswordResponse = {
+  status: boolean;
+  message: string;
 };

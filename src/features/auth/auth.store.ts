@@ -1,51 +1,101 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { authApi } from "./auth.api";
+import { AuthUser, LoginDto, SetPasswordDto } from "./auth.types";
 import Cookies from "js-cookie";
-import type { AuthState, AuthUser } from "./auth.types";
 
-interface AuthStore extends AuthState {
-  setAuth: (user: AuthUser, accessToken: string) => void;
-  setLoading: (isLoading: boolean) => void;
-  setError: (error: string | null) => void;
-  logout: () => void;
-}
+type AuthStore = {
+  user: AuthUser | null;
+  accessToken: string | null;
+  loading: boolean;
+  error: string | null;
+
+  login: (dto: LoginDto) => Promise<{ success: boolean; message: string }>;
+  logout: (fcmToken: string) => Promise<void>;
+  setPassword: (
+    dto: SetPasswordDto,
+  ) => Promise<{ success: boolean; message: string }>;
+};
 
 export const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
       user: null,
       accessToken: null,
-      isAuthenticated: false,
-      isLoading: false,
+      loading: false,
       error: null,
 
-      setAuth: (user, accessToken) => {
-     
-        Cookies.set("access_token", accessToken, { 
-          expires: 7, 
-          secure: true, 
-          sameSite: "None" 
-        });
+      login: async (dto) => {
+        set({ loading: true, error: null });
 
-        set({ user, accessToken, isAuthenticated: true, error: null });
+        try {
+          const res = await authApi.login(dto);
+
+          if (!res.status || !res.data) {
+            const message = res.message ?? "Invalid email or password";
+            set({ loading: false, error: message });
+            return { success: false, message };
+          }
+
+          const apiUser = res.data.user;
+          const role = apiUser.role;
+
+          const user: AuthUser = {
+            id: apiUser.id,
+            email: apiUser.email,
+            firstName: apiUser.firstName,
+            lastName: apiUser.lastName,
+            role: role.code,
+            company: apiUser.company ?? null,
+          };
+
+          const token = res.data.accessToken;
+
+          Cookies.set("token", token, {
+            expires: 1, // 1 day
+            sameSite: "lax",
+          });
+
+          set({
+            user,
+            accessToken: token,
+            loading: false,
+          });
+
+          return { success: true, message: res.message };
+        } catch (e: any) {
+          const message = e?.response?.data?.message ?? "Login failed";
+          set({ loading: false, error: message });
+          return { success: false, message };
+        }
       },
 
-      setLoading: (isLoading) => set({ isLoading }),
+      logout: async (fcmToken: string) => {
+        try {
+          await authApi.logout({ fcmToken });
+        } catch (error) {
+          console.error("Logout API failed", error);
+        } finally {
+          Cookies.remove("token");
+          localStorage.removeItem("auth-storage");
+          set({ user: null, accessToken: null });
 
-      setError: (error) => set({ error, isLoading: false }),
+          window.location.href = "/login";
+        }
+      },
 
-      logout: () => {
-    
-        Cookies.remove("access_token");
-        
-        localStorage.removeItem("access_token");
-        sessionStorage.removeItem("access_token");
-
-        set({
-          user: null,
-          accessToken: null,
-          isAuthenticated: false,
-        });
+      setPassword: async (dto) => {
+        set({ loading: true, error: null });
+        try {
+          const res = await authApi.setPassword(dto);
+          set({ loading: false });
+          return { success: res.status, message: res.message };
+        } catch (e: any) {
+          const message =
+            e?.response?.data?.message ?? "Failed to set password";
+          set({ loading: false, error: message });
+          return { success: false, message };
+        }
       },
     }),
     {
@@ -53,8 +103,7 @@ export const useAuthStore = create<AuthStore>()(
       partialize: (state) => ({
         user: state.user,
         accessToken: state.accessToken,
-        isAuthenticated: state.isAuthenticated,
       }),
-    }
-  )
+    },
+  ),
 );
