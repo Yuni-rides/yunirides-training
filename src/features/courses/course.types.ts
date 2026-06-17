@@ -79,6 +79,64 @@ export interface CourseAssessments {
   pendingCourse: number;
 }
 
+// Course Detail types
+export interface QuestionOption {
+  text: string;
+  label: string;
+}
+
+export interface CourseQuestion {
+  id: string;
+  questionText: string;
+  options: QuestionOption[];
+}
+
+export interface CourseDetailProgress {
+  status: "PENDING" | "FAILED" | "COMPLETED";
+  videoWatched: boolean;
+  quizPassed: boolean;
+  quizScore: number | null;
+  attemptCount: number;
+}
+
+export interface CurrentCourse {
+  id: string;
+  title: string;
+  description: string;
+  videoUrl: string;
+  videoDuration: number;
+  passingScore: number;
+  questions: CourseQuestion[];
+  progress: CourseDetailProgress;
+}
+
+export interface PlaylistItem {
+  id: string;
+  title: string;
+  vedioUrl: string; // typo API mein hai, as-is rakha
+  thumbnailUrl: string | null;
+  duration: string;
+  isPassed: boolean;
+  isVideoWatched: boolean;
+}
+
+export interface CertificateUnlock {
+  isEligible: boolean;
+  certificateCode: string | null;
+  certificateUrl: string | null;
+}
+
+export interface GetCourseDetailResponse {
+  status: boolean;
+  code: string;
+  message: string;
+  data: {
+    currentCourse: CurrentCourse;
+    playlist: PlaylistItem[];
+    certificateUnlock: CertificateUnlock;
+  };
+}
+
 export interface GetDriverCoursesResponse {
   status: boolean;
   code: string;

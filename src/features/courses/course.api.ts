@@ -1,6 +1,7 @@
 import { http } from "@/lib/shared/api/http";
 import {
   GetCategoriesByModuleResponse,
+  GetCourseDetailResponse,
   GetDriverCoursesResponse,
   GetModulesResponse,
 } from "./course.types";
@@ -25,6 +26,21 @@ export const courseApi = {
   ): Promise<GetCategoriesByModuleResponse> => {
     const res = await http.get<GetCategoriesByModuleResponse>(
       `/training/modules/${moduleId}/categories`,
+    );
+    return res.data;
+  },
+  getCourseById: async (courseId: string): Promise<GetCourseDetailResponse> => {
+    const res = await http.get<GetCourseDetailResponse>(
+      `/training/driver/courses/${courseId}`,
+    );
+    return res.data;
+  },
+  submitVideoWatchedStatus: async (
+    courseId: string,
+  ): Promise<{ status: boolean; message: string }> => {
+    const res = await http.post<{ status: boolean; message: string }>(
+      "/training/driver/video-watched",
+      { courseId },
     );
     return res.data;
   },

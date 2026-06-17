@@ -3,7 +3,7 @@ import CourseDetailPage from "@/components/dashboard/CourseDetailPage";
 export default function Page({
   params,
 }: {
-  params: Promise<{ courseId: string }>;
+  params: Promise<{ moduleId: string; courseId: string }>;
 }) {
   return <CourseDetailPageWrapper params={params} />;
 }
@@ -11,8 +11,13 @@ export default function Page({
 async function CourseDetailPageWrapper({
   params,
 }: {
-  params: Promise<{ courseId: string }>;
+  params: Promise<{ moduleId: string; courseId: string }>;
 }) {
   const resolvedParams = await params;
-  return <CourseDetailPage courseId={resolvedParams.courseId} />;
+  return (
+    <CourseDetailPage
+      courseId={resolvedParams.courseId}
+      moduleId={resolvedParams.moduleId}
+    />
+  );
 }
