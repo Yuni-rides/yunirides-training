@@ -4,6 +4,8 @@ import {
   GetCourseDetailResponse,
   GetDriverCoursesResponse,
   GetModulesResponse,
+  SubmitQuizPayload,
+  SubmitQuizResponse,
 } from "./course.types";
 
 export const courseApi = {
@@ -41,6 +43,15 @@ export const courseApi = {
     const res = await http.post<{ status: boolean; message: string }>(
       "/training/driver/video-watched",
       { courseId },
+    );
+    return res.data;
+  },
+  submitQuiz: async (
+    payload: SubmitQuizPayload,
+  ): Promise<SubmitQuizResponse> => {
+    const res = await http.post<SubmitQuizResponse>(
+      "/training/driver/quiz/submit",
+      payload,
     );
     return res.data;
   },

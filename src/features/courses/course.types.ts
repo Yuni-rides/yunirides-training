@@ -79,7 +79,6 @@ export interface CourseAssessments {
   pendingCourse: number;
 }
 
-// Course Detail types
 export interface QuestionOption {
   text: string;
   label: string;
@@ -113,7 +112,7 @@ export interface CurrentCourse {
 export interface PlaylistItem {
   id: string;
   title: string;
-  vedioUrl: string; // typo API mein hai, as-is rakha
+  vedioUrl: string;
   thumbnailUrl: string | null;
   duration: string;
   isPassed: boolean;
@@ -124,6 +123,38 @@ export interface CertificateUnlock {
   isEligible: boolean;
   certificateCode: string | null;
   certificateUrl: string | null;
+}
+
+export interface QuizAnswer {
+  questionId: string;
+  selectedOptionIndex: number;
+}
+
+export interface SubmitQuizPayload {
+  courseId: string;
+  answers: QuizAnswer[];
+}
+
+export interface GradedAnswer {
+  questionId: string;
+  selectedOptionIndex: number;
+  isCorrect: boolean;
+}
+
+export interface SubmitQuizResult {
+  score: number;
+  passed: boolean;
+  passingScore: number;
+  correctCount: number;
+  totalQuestions: number;
+  gradedAnswers: GradedAnswer[];
+}
+
+export interface SubmitQuizResponse {
+  status: boolean;
+  code: string;
+  message: string;
+  data: SubmitQuizResult;
 }
 
 export interface GetCourseDetailResponse {

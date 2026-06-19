@@ -8,6 +8,8 @@ import {
   CurrentCourse,
   DriverCourseItem,
   PlaylistItem,
+  SubmitQuizPayload,
+  SubmitQuizResponse,
 } from "./course.types";
 
 type CourseStore = {
@@ -15,6 +17,7 @@ type CourseStore = {
   coursesLoading: boolean;
   courseDetailLoading: boolean;
   videoSubmitting: boolean;
+  quizSubmitting: boolean;
   error: string | null;
   modules: CourseModuleItem[];
   categories: CourseCategoryItem[];
@@ -28,6 +31,10 @@ type CourseStore = {
   fetchCategoriesByModule: (moduleId: string) => Promise<void>;
   fetchCoursesByCategory: (categoryId: string) => Promise<void>;
   fetchCourseById: (courseId: string) => Promise<void>;
+  submitVideoWatched: (courseId: string) => Promise<boolean>;
+  submitQuiz: (
+    payload: SubmitQuizPayload,
+  ) => Promise<SubmitQuizResponse["data"] | null>;
 };
 
 export const useCourseStore = create<CourseStore>((set) => ({
@@ -35,6 +42,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
   coursesLoading: false,
   courseDetailLoading: false,
   videoSubmitting: false,
+  quizSubmitting: false,
   error: null,
   modules: [],
   categories: [],
@@ -142,6 +150,24 @@ export const useCourseStore = create<CourseStore>((set) => ({
           e?.response?.data?.message ?? "Failed to save video playback metrics",
       });
       return false;
+    }
+  },
+  submitQuiz: async (payload) => {
+    set({ quizSubmitting: true, error: null });
+    try {
+      const res = await courseApi.submitQuiz(payload);
+      if (!res.status) {
+        set({ quizSubmitting: false, error: res.message });
+        return null;
+      }
+      set({ quizSubmitting: false });
+      return res.data;
+    } catch (e: any) {
+      set({
+        quizSubmitting: false,
+        error: e?.response?.data?.message ?? "Failed to submit quiz",
+      });
+      return null;
     }
   },
 }));
