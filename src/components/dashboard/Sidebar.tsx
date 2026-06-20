@@ -26,9 +26,8 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`h-screen bg-[#EFF2FF] shadow-md flex flex-col transition-all duration-300 ${collapsed ? "w-20" : "w-64"}`}
+      className={`h-screen sticky top-0 bg-[#EFF2FF] shadow-md flex flex-col transition-all duration-300 ${collapsed ? "w-20" : "w-64"}`}
     >
-      {/* Top */}
       <div className="flex items-center justify-between p-4">
         {!collapsed && <img src="/images/logo.png" className="h-10" />}
         <button
@@ -39,7 +38,6 @@ export default function Sidebar() {
         </button>
       </div>
 
-      {/* Nav */}
       <nav className="flex flex-col gap-2 px-3 mt-6">
         <Link href="/dashboard">
           <NavItem

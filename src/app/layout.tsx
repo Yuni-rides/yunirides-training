@@ -17,13 +17,11 @@
 
       <html lang="en">
         <body className={`${geist.className}`}>
-          {/* Sirf main content aur naya navigation rakhein */}
           <main className="w-full min-h-screen">
             {children}
             <Toaster />
           </main>
 
-          {/* Naya UI navigation */}
           <MobileNavigation /> 
         </body>
       </html>

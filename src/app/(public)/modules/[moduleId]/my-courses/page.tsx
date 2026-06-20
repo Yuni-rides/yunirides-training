@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import { Monitor } from "lucide-react";
 import CourseCard from "@/components/my-courses/CourseCard";
 import UserMenu from "@/components/UserMenu";
+import Loader from "@/components/ui/Loader";
 import { useCourseStore } from "@/features/courses/course.store";
 
 function AssessmentCard({
@@ -90,7 +91,9 @@ export default function MyCoursesPage() {
 
   return (
     <div className="flex h-screen bg-white">
-      <div className="flex-1 p-6 space-y-6 overflow-y-auto no-scrollbar">
+      <div className="flex-1 p-6 space-y-6 overflow-y-auto no-scrollbar relative">
+        {(loading || coursesLoading) && <Loader />}
+
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-black text-[#2C3979] uppercase italic">
             My Courses
@@ -114,11 +117,7 @@ export default function MyCoursesPage() {
           ))}
         </div>
 
-        {loading ? (
-          <p className="text-sm text-slate-400 italic animate-pulse">
-            Loading...
-          </p>
-        ) : error ? (
+        {error ? (
           <p className="text-sm text-red-500 font-semibold">{error}</p>
         ) : (
           <div className="flex gap-6 border-b border-slate-100">
@@ -175,26 +174,20 @@ export default function MyCoursesPage() {
           </span>
         </div>
 
-        {coursesLoading ? (
-          <div className="flex justify-center items-center h-48">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#2C3979]" />
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {courses.map((course, index) => (
-              <CourseCard
-                key={`${course.id}-${index}`}
-                moduleId={moduleId}
-                course={{
-                  ...course,
-                  thumbnailUrl: course.thumbnailUrl
-                    ? `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${course.thumbnailUrl}`
-                    : null,
-                }}
-              />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {courses.map((course, index) => (
+            <CourseCard
+              key={`${course.id}-${index}`}
+              moduleId={moduleId}
+              course={{
+                ...course,
+                thumbnailUrl: course.thumbnailUrl
+                  ? `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${course.thumbnailUrl}`
+                  : null,
+              }}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ const Loader: React.FC<{ fullscreen?: boolean }> = ({ fullscreen = false }) => {
       className={`z-[9999] flex items-center justify-center ${
         fullscreen
           ? "fixed inset-0 bg-white/70 dark:bg-gray-900/70"
-          : "absolute inset-0 bg-white/70 dark:bg-gray-900/70 rounded-[15px]"
+          : "absolute inset-0 bg-white/70 "
       }`}
     >
       <div className="relative h-12 w-12">

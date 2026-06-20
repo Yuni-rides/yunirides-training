@@ -2,6 +2,7 @@ import { http } from "@/lib/shared/api/http";
 import {
   GetCategoriesByModuleResponse,
   GetCourseDetailResponse,
+  GetDriverCertificatesResponse,
   GetDriverCoursesResponse,
   GetModulesResponse,
   SubmitQuizPayload,
@@ -53,6 +54,15 @@ export const courseApi = {
       "/training/driver/quiz/submit",
       payload,
     );
+    return res.data;
+  },
+  getDriverCertificates: async (
+    moduleId?: string,
+  ): Promise<GetDriverCertificatesResponse> => {
+    const url = moduleId
+      ? `/training/driver/certificates?moduleId=${moduleId}`
+      : "/training/driver/certificates";
+    const res = await http.get<GetDriverCertificatesResponse>(url);
     return res.data;
   },
 };

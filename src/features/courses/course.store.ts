@@ -6,6 +6,7 @@ import {
   CourseCategoryItem,
   CourseModuleItem,
   CurrentCourse,
+  DriverCertificateItem,
   DriverCourseItem,
   PlaylistItem,
   SubmitQuizPayload,
@@ -16,6 +17,7 @@ type CourseStore = {
   loading: boolean;
   coursesLoading: boolean;
   courseDetailLoading: boolean;
+  certificatesLoading: boolean;
   videoSubmitting: boolean;
   quizSubmitting: boolean;
   error: string | null;
@@ -26,6 +28,7 @@ type CourseStore = {
   currentCourse: CurrentCourse | null;
   playlist: PlaylistItem[];
   certificateUnlock: CertificateUnlock | null;
+  certificates: DriverCertificateItem[];
 
   fetchModules: () => Promise<void>;
   fetchCategoriesByModule: (moduleId: string) => Promise<void>;
@@ -35,6 +38,7 @@ type CourseStore = {
   submitQuiz: (
     payload: SubmitQuizPayload,
   ) => Promise<SubmitQuizResponse["data"] | null>;
+  fetchDriverCertificates: (moduleId?: string) => Promise<void>;
 };
 
 export const useCourseStore = create<CourseStore>((set) => ({
@@ -43,6 +47,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
   courseDetailLoading: false,
   videoSubmitting: false,
   quizSubmitting: false,
+  certificatesLoading: false,
   error: null,
   modules: [],
   categories: [],
@@ -51,6 +56,7 @@ export const useCourseStore = create<CourseStore>((set) => ({
   currentCourse: null,
   playlist: [],
   certificateUnlock: null,
+  certificates: [],
 
   fetchCategoriesByModule: async (moduleId: string) => {
     set({ loading: true, error: null, categories: [] });
@@ -168,6 +174,23 @@ export const useCourseStore = create<CourseStore>((set) => ({
         error: e?.response?.data?.message ?? "Failed to submit quiz",
       });
       return null;
+    }
+  },
+  fetchDriverCertificates: async (moduleId?: string) => {
+    set({ certificatesLoading: true, error: null, certificates: [] });
+    try {
+      const res = await courseApi.getDriverCertificates(moduleId);
+      if (!res.status) {
+        set({ certificatesLoading: false, error: res.message });
+        return;
+      }
+      set({ certificates: res.data || [], certificatesLoading: false });
+    } catch (e: any) {
+      set({
+        certificatesLoading: false,
+        error:
+          e?.response?.data?.message ?? "Failed to load driver certificates",
+      });
     }
   },
 }));

@@ -88,6 +88,7 @@ export interface CourseQuestion {
   id: string;
   questionText: string;
   options: QuestionOption[];
+  questionDuration?: number;
 }
 
 export interface CourseDetailProgress {
@@ -139,6 +140,39 @@ export interface GradedAnswer {
   questionId: string;
   selectedOptionIndex: number;
   isCorrect: boolean;
+}
+
+export interface CertificateCategory {
+  id: string;
+  moduleId: string;
+  operationId: string | null;
+  name: string;
+  description: string | null;
+  thumbnailUrl: string | null;
+  order: number;
+  isActive: boolean;
+  createdAt: string;
+  createdBy: string;
+  updatedAt: string;
+  updatedBy: string;
+  module: CourseModuleItem;
+}
+
+export interface DriverCertificateItem {
+  id: string;
+  driverId: string;
+  categoryId: string;
+  certificateUrl: string;
+  certificateCode: string;
+  issuedAt: string;
+  category: CertificateCategory;
+}
+
+export interface GetDriverCertificatesResponse {
+  status: boolean;
+  code: string;
+  message: string;
+  data: DriverCertificateItem[];
 }
 
 export interface SubmitQuizResult {
