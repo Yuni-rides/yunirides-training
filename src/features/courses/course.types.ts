@@ -42,7 +42,7 @@ export interface CourseProgress {
   id?: string;
   driverId?: string;
   courseId?: string;
-  status: "PENDING" | "FAILED" | "COMPLETED";
+  status: "PENDING" | "IN_PROGRESS" | "PASSED" | "FAILED";
   videoWatched: boolean;
   quizPassed: boolean;
   quizScore: number | null;

@@ -89,6 +89,8 @@ export default function MyCoursesPage() {
     fetchCoursesByCategory(activeCategoryId);
   }, [activeCategoryId]);
 
+  const sortedCourses = [...courses].sort((a, b) => a.order - b.order);
+
   return (
     <div className="flex h-screen bg-white">
       <div className="flex-1 p-6 space-y-6 overflow-y-auto no-scrollbar relative">
@@ -175,18 +177,25 @@ export default function MyCoursesPage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {courses.map((course, index) => (
-            <CourseCard
-              key={`${course.id}-${index}`}
-              moduleId={moduleId}
-              course={{
-                ...course,
-                thumbnailUrl: course.thumbnailUrl
-                  ? `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${course.thumbnailUrl}`
-                  : null,
-              }}
-            />
-          ))}
+          {sortedCourses.map((course, index) => {
+            const isLocked =
+              index > 0 &&
+              sortedCourses[index - 1].progress?.status !== "PASSED";
+
+            return (
+              <CourseCard
+                key={`${course.id}-${index}`}
+                moduleId={moduleId}
+                isLocked={isLocked}
+                course={{
+                  ...course,
+                  thumbnailUrl: course.thumbnailUrl
+                    ? `${process.env.NEXT_PUBLIC_S3_BUCKET_URL}/${course.thumbnailUrl}`
+                    : null,
+                }}
+              />
+            );
+          })}
         </div>
       </div>
     </div>
