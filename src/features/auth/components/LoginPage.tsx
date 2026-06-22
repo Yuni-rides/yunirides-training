@@ -30,7 +30,10 @@ export default function TrainingLoginPage() {
     const response = await login({ email, password });
 
     if (response.success) {
-      if (loggedInUser?.role !== "DRIVER" && loggedInUser?.role !== "DRIVFR") {
+      const store = useAuthStore.getState();
+      const role = store.user?.role;
+
+      if (role !== "DRIVER" && role !== "DRIVFR") {
         toast({
           variant: "destructive",
           title: "Access Denied",

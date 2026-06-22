@@ -1,15 +1,21 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useLogout } from "@/hooks/useLogout";
-import { LogOut } from "lucide-react";
+import { useAuthStore } from "@/features/auth/auth.store";
+import { LogOut, User } from "lucide-react";
 
-const PROFILE_IMAGE_PATH = "/images/profileman.jpg";
+const S3 = process.env.NEXT_PUBLIC_S3_BUCKET_URL;
 
 export default function UserMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const { handleLogout } = useLogout();
+  const { user,logout } = useAuthStore();
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const profileImageUrl = user?.profileImg
+    ? user.profileImg.startsWith("http")
+      ? user.profileImg
+      : `${S3}/${user.profileImg}`
+    : null;
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -23,26 +29,36 @@ export default function UserMenu() {
 
   return (
     <div className="relative" ref={menuRef}>
-      {/* 1. The Trigger Button */}
-      <button 
+      <button
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center focus:outline-none hover:opacity-80 transition-opacity"
       >
-        <img
-          src={PROFILE_IMAGE_PATH}
-          className="w-10 h-10 rounded-full border-2 border-white shadow-sm"
-          alt="Driver Profile"
-        />
+        {profileImageUrl ? (
+          <img
+            src={profileImageUrl}
+            className="w-10 h-10 rounded-full border-2 border-white shadow-sm object-cover"
+            alt="Driver Profile"
+          />
+        ) : (
+          <div className="w-10 h-10 rounded-full border-2 border-white shadow-sm bg-[#EFF2FF] flex items-center justify-center">
+            <User size={20} className="text-[#822C89]" />
+          </div>
+        )}
       </button>
 
-      {/* 2. The Simplified Dropdown */}
       {isOpen && (
         <div className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-[999]">
-        
-          {/* Section: Logout Action Only */}
+          {user && (
+            <div className="px-4 py-3 border-b border-gray-100">
+              <p className="text-sm font-bold text-[#1E1B4B] truncate">
+                {user.firstName} {user.lastName}
+              </p>
+              <p className="text-xs text-gray-400 truncate">{user.email}</p>
+            </div>
+          )}
           <div className="p-2">
             <button
-              onClick={handleLogout}
+              onClick={() => logout()}
               className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 rounded-lg font-semibold transition-colors"
             >
               <LogOut size={16} />

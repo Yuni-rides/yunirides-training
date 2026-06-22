@@ -1,113 +1,3 @@
-// import { create } from "zustand";
-// import { persist } from "zustand/middleware";
-// import { authApi } from "./auth.api";
-// import { AuthUser, LoginDto, SetPasswordDto } from "./auth.types";
-// import Cookies from "js-cookie";
-
-// type AuthStore = {
-//   user: AuthUser | null;
-//   accessToken: string | null;
-//   loading: boolean;
-//   error: string | null;
-
-//   login: (dto: LoginDto) => Promise<{ success: boolean; message: string }>;
-//   logout: (fcmToken: string) => Promise<void>;
-//   setPassword: (
-//     dto: SetPasswordDto,
-//   ) => Promise<{ success: boolean; message: string }>;
-// };
-
-// export const useAuthStore = create<AuthStore>()(
-//   persist(
-//     (set) => ({
-//       user: null,
-//       accessToken: null,
-//       loading: false,
-//       error: null,
-
-//       login: async (dto) => {
-//         set({ loading: true, error: null });
-
-//         try {
-//           const res = await authApi.login(dto);
-
-//           if (!res.status || !res.data) {
-//             const message = res.message ?? "Invalid email or password";
-//             set({ loading: false, error: message });
-//             return { success: false, message };
-//           }
-
-//           const apiUser = res.data.user;
-//           const role = apiUser.role;
-
-//           const user: AuthUser = {
-//             id: apiUser.id,
-//             email: apiUser.email,
-//             firstName: apiUser.firstName,
-//             lastName: apiUser.lastName,
-//             role: role.code,
-//             company: apiUser.company ?? null,
-//           };
-
-//           const token = res.data.accessToken;
-
-//           Cookies.set("token", token, {
-//             expires: 1, // 1 day
-//             sameSite: "lax",
-//           });
-
-//           set({
-//             user,
-//             accessToken: token,
-//             loading: false,
-//           });
-
-//           return { success: true, message: res.message };
-//         } catch (e: any) {
-//           const message = e?.response?.data?.message ?? "Login failed";
-//           set({ loading: false, error: message });
-//           return { success: false, message };
-//         }
-//       },
-
-//       logout: async (fcmToken: string) => {
-//         try {
-//           await authApi.logout({ fcmToken });
-//         } catch (error) {
-//           console.error("Logout API failed", error);
-//         } finally {
-//           Cookies.remove("token");
-//           localStorage.removeItem("auth-storage");
-//           set({ user: null, accessToken: null });
-
-//           window.location.href = "/login";
-//         }
-//       },
-
-//       setPassword: async (dto) => {
-//         set({ loading: true, error: null });
-//         try {
-//           const res = await authApi.setPassword(dto);
-//           set({ loading: false });
-//           return { success: res.status, message: res.message };
-//         } catch (e: any) {
-//           const message =
-//             e?.response?.data?.message ?? "Failed to set password";
-//           set({ loading: false, error: message });
-//           return { success: false, message };
-//         }
-//       },
-//     }),
-//     {
-//       name: "auth-storage",
-//       partialize: (state) => ({
-//         user: state.user,
-//         accessToken: state.accessToken,
-//       }),
-//     },
-//   ),
-// );
-
 "use client";
 
 import { create } from "zustand";
@@ -123,7 +13,7 @@ type AuthStore = {
   error: string | null;
 
   login: (dto: LoginDto) => Promise<{ success: boolean; message: string }>;
-  logout: (fcmToken: string) => Promise<void>;
+  logout: (fcmToken?: string) => Promise<void>;
   setPassword: (
     dto: SetPasswordDto,
   ) => Promise<{ success: boolean; message: string }>;
@@ -158,6 +48,7 @@ export const useAuthStore = create<AuthStore>()(
             firstName: apiUser.firstName,
             lastName: apiUser.lastName,
             role: role.code,
+            profileImg: apiUser.profileImg ?? null,
             company: apiUser.company ?? null,
           };
 
@@ -182,19 +73,20 @@ export const useAuthStore = create<AuthStore>()(
         }
       },
 
-      logout: async (fcmToken: string) => {
+      logout: async (fcmToken) => {
         try {
-          await authApi.logout({ fcmToken });
+          await authApi.logout({ fcmToken: fcmToken ?? "" });
         } catch (error) {
-          console.error("Logout API failed", error);
+          console.error("Logout API connection failed:", error);
         } finally {
           Cookies.remove("access_token");
           localStorage.removeItem("auth-storage");
-          set({ user: null, accessToken: null });
+
+          set({ user: null, accessToken: null, error: null });
+
           window.location.href = "/login";
         }
       },
-
       setPassword: async (dto) => {
         set({ loading: true, error: null });
         try {

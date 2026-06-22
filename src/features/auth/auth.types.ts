@@ -4,6 +4,7 @@ export type AuthUser = {
   firstName: string;
   lastName: string;
   role: string;
+  profileImg: string | null;
   company: {
     id: string;
     name: string;
@@ -29,6 +30,7 @@ export type LoginResponse = {
       firstName: string;
       lastName: string;
       email: string;
+      profileImg: string | null;
       role: {
         code: string;
         permissions: {
