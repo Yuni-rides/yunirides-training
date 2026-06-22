@@ -5,8 +5,6 @@ import {
   MessageSquare,
   Phone,
   Mail,
-  ChevronRight,
-  Search,
   Plus,
   Minus,
 } from "lucide-react";
@@ -96,7 +94,7 @@ export default function HelpPage() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
-    <div className="flex-1 flex flex-col min-w-full bg-white">
+    <div className="flex-1 flex flex-col min-w-full bg-white h-screen">
       <HelpHeader />
 
       <div className="px-8 pb-10">
@@ -126,18 +124,7 @@ export default function HelpPage() {
           </div>
 
           <div className="w-full lg:w-80 space-y-6">
-            <div className="w-full">
-              <div className="bg-[#EEF0FB] rounded-2xl flex items-center shadow-sm border border-[#e2e4f0] group focus-within:bg-white transition-colors">
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="flex-1 bg-transparent px-5 py-3.5 text-sm font-normal text-gray-700 placeholder:text-gray-400 placeholder:font-medium outline-none"
-                />
-                <div className="bg-[#1E1B4B] text-white p-3 mx-1 my-1 rounded-lg cursor-pointer">
-                  <Search size={18} strokeWidth={2.5} />
-                </div>
-              </div>
-            </div>
+            
 
             <div className="bg-[#EEF0FB] rounded-2xl p-6 border border-[#e2e4f0] shadow-sm">
               <div className="flex items-start gap-3 mb-2">
@@ -157,7 +144,7 @@ export default function HelpPage() {
                 with training access, technical issues, and account questions.
               </p>
 
-              <div className="mb-6">
+              <div>
                 <h4 className="text-[13px] font-bold text-black mb-1">
                   Support Hours
                 </h4>
@@ -172,11 +159,6 @@ export default function HelpPage() {
                   </li>
                 </ul>
               </div>
-
-              <button className="w-full bg-[#8B318E] hover:bg-[#822C89] text-white py-3 rounded-xl text-sm font-semibold flex items-center justify-center gap-3 transition-all shadow-md">
-                Start Live Chat
-                <ChevronRight size={18} strokeWidth={2.5} />
-              </button>
             </div>
 
             <div className="space-y-3">
