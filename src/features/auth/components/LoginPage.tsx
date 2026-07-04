@@ -3,11 +3,10 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuthStore } from "../auth.store";
 import { toast } from "@/hooks/useToast";
-import { cn } from "@/lib/utils";
+import Cookies from "js-cookie";
 
 export default function TrainingLoginPage() {
   const router = useRouter();
@@ -40,6 +39,15 @@ export default function TrainingLoginPage() {
           description:
             "Only driver accounts are authorized for this training portal.",
         });
+
+        Cookies.remove("access_token");
+        localStorage.removeItem("auth-storage");
+        useAuthStore.setState({
+          user: null,
+          accessToken: null,
+          error: "Access Denied",
+        });
+
         return;
       }
 
@@ -114,12 +122,6 @@ export default function TrainingLoginPage() {
               />
               <span className="text-sm text-gray-600">Remember password</span>
             </label>
-            <Link
-              href="/forgot-password"
-              className="text-sm text-gray-500 hover:text-[#8B1F7A]"
-            >
-              Forgotten password?
-            </Link>
           </div>
 
           <button

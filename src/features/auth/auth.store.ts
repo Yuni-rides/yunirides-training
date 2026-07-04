@@ -35,7 +35,12 @@ export const useAuthStore = create<AuthStore>()(
 
           if (!res.status || !res.data) {
             const message = res.message ?? "Invalid email or password";
-            set({ loading: false, error: message });
+            set({
+              user: null,
+              accessToken: null,
+              loading: false,
+              error: message,
+            });
             return { success: false, message };
           }
 
@@ -68,7 +73,12 @@ export const useAuthStore = create<AuthStore>()(
           return { success: true, message: res.message };
         } catch (e: any) {
           const message = e?.response?.data?.message ?? "Login failed";
-          set({ loading: false, error: message });
+          set({
+            user: null,
+            accessToken: null,
+            loading: false,
+            error: message,
+          });
           return { success: false, message };
         }
       },
