@@ -145,7 +145,7 @@ export default function CertificatesPage() {
     <div className="flex-1 flex flex-col min-w-0 relative">
       {loading && <Loader />}
 
-      <div className="px-8 pb-10 overflow-y-auto flex-1">
+      <div className="px-4 pb-10 overflow-y-auto flex-1">
         <div className="flex items-center gap-3 mb-8 flex-wrap pt-6">
           <p className="text-[13px] text-gray-500">
             View and download all your completed certificates.

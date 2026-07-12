@@ -31,7 +31,7 @@ export default function UserMenu() {
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center focus:outline-none hover:opacity-80 transition-opacity"
+        className="flex items-center focus:outline-none hover:opacity-80 transition-opacity cursor-pointer"
       >
         {profileImageUrl ? (
           <img
@@ -41,7 +41,7 @@ export default function UserMenu() {
           />
         ) : (
           <div className="w-10 h-10 rounded-full border-2 border-white shadow-sm bg-[#EFF2FF] flex items-center justify-center">
-            <User size={20} className="text-[#822C89]" />
+            <User size={20} className="text-[#822C89] " />
           </div>
         )}
       </button>
@@ -49,7 +49,7 @@ export default function UserMenu() {
       {isOpen && (
         <div className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden z-[999]">
           {user && (
-            <div className="px-4 py-3 border-b border-gray-100">
+            <div className="px-4 py-3 border-b border-gray-100 ">
               <p className="text-sm font-bold text-[#1E1B4B] truncate">
                 {user.firstName} {user.lastName}
               </p>
@@ -59,7 +59,7 @@ export default function UserMenu() {
           <div className="p-2">
             <button
               onClick={() => logout()}
-              className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 rounded-lg font-semibold transition-colors"
+              className="cursor-pointer w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 rounded-lg font-semibold transition-colors"
             >
               <LogOut size={16} />
               Log out

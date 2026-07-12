@@ -20,6 +20,7 @@ import {
 import { useCourseStore } from "@/features/courses/course.store";
 import { QuizAnswer } from "@/features/courses/course.types";
 import { getS3Url } from "@/features/courses/course.helper";
+import Loader from "../ui/Loader";
 
 const VideoPlayer = dynamic(() => import("@/components/training/VideoPlayer"), {
   ssr: false,
@@ -268,10 +269,11 @@ export default function CourseDetailPage({
   if (!isClient || loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[70vh] gap-3">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-purple-600" />
+        {/* <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-purple-600" />
         <p className="text-sm font-bold text-slate-400 italic animate-pulse">
           Syncing media playlist structural layouts...
-        </p>
+        </p> */}
+        <Loader />
       </div>
     );
   }
@@ -317,8 +319,8 @@ export default function CourseDetailPage({
       const r = quizState.result;
       const passed = r?.passed ?? false;
       return (
-        <div className="absolute inset-0 bg-[#1E1B4B]/95 flex items-center justify-center p-6 z-50">
-          <div className="bg-white w-full max-w-md p-8 rounded-[32px] shadow-2xl flex flex-col items-center text-center">
+        <div className="fixed inset-0 bg-[#1E1B4B]/95 flex items-center justify-center p-4 sm:p-6 z-[200]">
+          <div className="bg-white w-full max-w-md p-6 sm:p-8 rounded-[32px] shadow-2xl flex flex-col items-center text-center max-h-[90vh] overflow-y-auto">
             <div
               className={`w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
                 passed ? "bg-green-100" : "bg-red-100"
@@ -369,7 +371,7 @@ export default function CourseDetailPage({
               {!passed && (
                 <button
                   onClick={handleRetakeQuiz}
-                  className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition"
+                  className="cursor-pointer flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   Retake Quiz
@@ -380,7 +382,7 @@ export default function CourseDetailPage({
                   setQuizState((p) => ({ ...p, phase: "idle" }));
                   if (passed) goToNextLesson();
                 }}
-                className="flex-1 py-3 rounded-xl bg-[#1E1B4B] text-white text-xs font-bold hover:bg-[#2d2a6e] transition"
+                className="cursor-pointer flex-1 py-3 rounded-xl bg-[#1E1B4B] text-white text-xs font-bold hover:bg-[#2d2a6e] transition"
               >
                 {passed ? "Continue" : "Review Material"}
               </button>
@@ -393,8 +395,8 @@ export default function CourseDetailPage({
     if (!currentQ) return null;
 
     return (
-      <div className="absolute inset-0 bg-[#1E1B4B]/95 flex items-center justify-center p-6 z-50">
-        <div className="bg-white w-full max-w-xl p-8 rounded-[32px] shadow-2xl">
+      <div className="fixed inset-0 bg-[#1E1B4B]/95 flex items-center justify-center p-4 sm:p-6 z-[200]">
+        <div className="bg-white w-full max-w-xl p-5 sm:p-8 rounded-[32px] shadow-2xl max-h-[90vh] overflow-y-auto">
           {/* header row */}
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-2">
@@ -434,7 +436,7 @@ export default function CourseDetailPage({
               <button
                 key={idx}
                 onClick={() => setSelectedOptionIndex(idx)}
-                className={`w-full p-3.5 text-left rounded-xl border text-xs font-medium transition-all ${
+                className={`w-full p-3.5 text-left rounded-xl border text-xs font-medium transition-all cursor-pointer ${
                   selectedOptionIndex === idx
                     ? "border-[#822C89] bg-[#EFF2FF] text-[#1E1B4B] font-bold"
                     : "border-slate-100 hover:bg-slate-50 text-slate-600"
@@ -453,7 +455,7 @@ export default function CourseDetailPage({
               {questions.map((_, i) => (
                 <div
                   key={i}
-                  className={`w-2 h-2 rounded-full transition-all ${
+                  className={`w-2 h-2 rounded-full transition-all  ${
                     i < quizState.currentQuestionIndex
                       ? "bg-[#822C89]"
                       : i === quizState.currentQuestionIndex
@@ -467,7 +469,7 @@ export default function CourseDetailPage({
             <button
               disabled={selectedOptionIndex === null || quizSubmitting}
               onClick={handleNextQuestion}
-              className="bg-[#1E1B4B] text-white text-xs px-6 py-2.5 rounded-xl font-bold disabled:opacity-40 shadow-sm flex items-center gap-2 transition"
+              className="cursor-pointer bg-[#1E1B4B] text-white text-xs px-6 py-2.5 rounded-xl font-bold disabled:opacity-40 shadow-sm flex items-center gap-2 transition"
             >
               {quizSubmitting ? (
                 <>
@@ -509,7 +511,7 @@ export default function CourseDetailPage({
 
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
         <div className="xl:col-span-8 space-y-6">
-          <div className="aspect-video rounded-[32px] overflow-hidden border-[6px] border-white shadow-xl relative">
+          <div className="aspect-video rounded-[32px] overflow-hidden border-[6px] border-white shadow-xl relative cursor-pointer">
             {activeVideoUrl && (
               <VideoPlayer
                 videoUrl={activeVideoUrl}

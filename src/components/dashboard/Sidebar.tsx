@@ -5,7 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useCourseStore } from "@/features/courses/course.store";
 
-export default function Sidebar() {
+export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
@@ -21,6 +21,7 @@ export default function Sidebar() {
     }
     if (mods.length > 0) {
       router.push(`/modules/${mods[0].id}/my-courses`);
+      onNavigate?.();
     }
   };
 
@@ -39,7 +40,7 @@ export default function Sidebar() {
       </div>
 
       <nav className="flex flex-col gap-2 px-3 mt-6">
-        <Link href="/dashboard">
+        <Link href="/dashboard" onClick={() => onNavigate?.()}>
           <NavItem
             label="Dashboard"
             collapsed={collapsed}
@@ -59,7 +60,7 @@ export default function Sidebar() {
           </NavItem>
         </button>
 
-        <Link href="/certificates">
+        <Link href="/certificates" onClick={() => onNavigate?.()}>
           <NavItem
             label="Certificates"
             collapsed={collapsed}
@@ -69,7 +70,7 @@ export default function Sidebar() {
           </NavItem>
         </Link>
 
-        <Link href="/help">
+        <Link href="/help" onClick={() => onNavigate?.()}>
           <NavItem
             label="Help"
             collapsed={collapsed}

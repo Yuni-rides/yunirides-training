@@ -18,19 +18,19 @@ function AssessmentCard({
   subtext: string;
 }) {
   return (
-    <div className="flex items-center gap-4 bg-[#EFF2FF] p-4 rounded-xl border border-white shadow-sm w-full">
-      <div className="bg-white p-2.5 rounded-lg shadow-sm flex items-center justify-center">
-        <Monitor size={20} className="text-[#822C89]" />
+    <div className="flex items-center gap-2 sm:gap-4 bg-[#EFF2FF] p-2.5 sm:p-4 rounded-xl border border-white shadow-sm w-full min-w-0">
+      <div className="bg-white p-2 sm:p-2.5 rounded-lg shadow-sm flex items-center justify-center shrink-0">
+        <Monitor size={18} className="text-[#822C89] sm:size-5" />
       </div>
-      <div className="flex flex-col">
-        <span className="text-[11px] text-gray-500 font-medium uppercase tracking-tight leading-none mb-1">
+      <div className="flex flex-col min-w-0">
+        <span className="text-[10px] sm:text-[11px] text-gray-500 font-medium uppercase tracking-tight leading-none mb-1 truncate">
           {title}
         </span>
-        <div className="flex items-baseline gap-2">
-          <span className="text-xl font-bold text-[#822C89] leading-none">
+        <div className="flex items-baseline gap-1 sm:gap-2 flex-wrap">
+          <span className="text-base sm:text-xl font-bold text-[#822C89] leading-none">
             {value}
           </span>
-          <span className="text-[10px] text-gray-400 whitespace-nowrap">
+          <span className="text-[9px] sm:text-[10px] text-gray-400 whitespace-normal leading-tight">
             {subtext}
           </span>
         </div>
@@ -96,19 +96,20 @@ export default function MyCoursesPage() {
       <div className="flex-1 p-6 space-y-6 overflow-y-auto no-scrollbar relative">
         {(loading || coursesLoading) && <Loader />}
 
-        <div className="flex items-center justify-between">
-          <h1 className="text-xl font-black text-[#2C3979] uppercase italic">
-            My Courses
-          </h1>
-          <UserMenu />
+        <div className="w-full bg-[#EFF2FF] rounded-2xl px-6 py-4 flex items-center justify-between border border-transparent shadow-sm">
+          <h1 className="text-lg font-semibold text-[#1E1B4B]">My Courses</h1>
+
+          <div className="flex items-center gap-3">
+            <UserMenu />
+          </div>
         </div>
 
-        <div className="flex gap-2 bg-[#EFF2FF] p-1 rounded-xl w-fit">
+        <div className="flex gap-2 bg-[#EFF2FF] p-1 rounded-xl w-fit ">
           {modules.map((mod, idx) => (
             <button
               key={mod.id}
               onClick={() => setActiveTab(idx)}
-              className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${
+              className={`px-5 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer ${
                 activeTab === idx
                   ? "bg-[#2C3979] text-white shadow"
                   : "text-slate-400 hover:text-slate-600"
@@ -122,12 +123,12 @@ export default function MyCoursesPage() {
         {error ? (
           <p className="text-sm text-red-500 font-semibold">{error}</p>
         ) : (
-          <div className="flex gap-6 border-b border-slate-100">
+          <div className="flex gap-6 border-b border-slate-100 overflow-x-auto no-scrollbar ">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategoryId(cat.id)}
-                className={`pb-2 text-sm font-semibold transition-all border-b-2 ${
+                className={`cursor-pointer pb-2 text-sm font-semibold transition-all border-b-2 whitespace-nowrap shrink-0 ${
                   activeCategoryId === cat.id
                     ? "border-[#822C89] text-[#822C89]"
                     : "border-transparent text-slate-400 hover:text-slate-600"
