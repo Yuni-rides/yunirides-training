@@ -30,7 +30,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       className={`h-screen sticky top-0 bg-[#EFF2FF] shadow-md flex flex-col transition-all duration-300 ${collapsed ? "w-20" : "w-64"}`}
     >
       <div className="flex items-center justify-between p-4">
-        {!collapsed && <img src="/images/logo.png" className="h-10" />}
+        {!collapsed && <img src="/images/logo.png" alt="yuni rides logo" className="h-10" />}
         <button
           onClick={() => setCollapsed(!collapsed)}
           className="p-2 rounded-lg hover:bg-purple-100"
