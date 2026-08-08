@@ -78,6 +78,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           >
             <SupportIcon />
           </NavItem>
+          
         </Link>
       </nav>
     </div>
