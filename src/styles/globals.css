@@ -1,20 +1,15 @@
 @import "tailwindcss";
 
-
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
-} */
-
 :root {
-  --background: #EFF2FF; /* Base background */
+  --background: #EFF2FF; /* Base background / dashboard bg */
   --foreground: #171717;
 
   /* =========================
-     BASE THEME (EXISTING & FIXES)
+     BASE THEME (UPDATED)
   ========================= */
-  --color-primary: #822C89;       /* ✅ logo purple */
-  --color-primary-light: #F3E8FF;
+  --color-primary: #D85A44;       /* ✅ Updated primary color */
+  --color-primary-light: #FDF2F0; /* Light variant based on new primary */
+  --color-secondary: #151D32;     /* ✅ Added secondary color */
   --color-dashboard-bg: #EFF2FF;  /* ✅ same as figma */
   --color-card: #FFFFFF;
   --color-header: #E6E8F5;        /* ✅ top bar color */
@@ -41,44 +36,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #EFF2FF;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-/* =========================
-   BASE THEME (EXISTING)
-========================= */
-:root {
-  --background: #EFF2FF; /* ✅ dashboard bg */
-  --foreground: #171717;
-
- 
-  --color-primary: #822C89;       /* ✅ logo purple */
-  --color-primary-light: #F3E8FF;
-  --color-dashboard-bg: #EFF2FF;  /* ✅ same as figma */
-  --color-card: #FFFFFF;
-  --color-header: #E6E8F5;        /* ✅ top bar color */
-  --color-muted: #6B7280;
-}
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
 
   --color-primary: var(--color-primary);
   --color-primary-light: var(--color-primary-light);
+  --color-secondary: var(--color-secondary);
   --color-dashboard-bg: var(--color-dashboard-bg);
   --color-card: var(--color-card);
   --color-muted: var(--color-muted);
@@ -87,9 +48,6 @@ body {
   --font-mono: var(--font-geist-mono);
 }
 
-/* =========================
-   DARK MODE (KEEP + ADJUST)
-========================= */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #EFF2FF;
@@ -127,6 +85,18 @@ body {
   transition: 0.2s;
 }
 .btn-primary:hover {
+  opacity: 0.9;
+}
+
+/* Secondary button/element helper */
+.btn-secondary {
+  background: var(--color-secondary);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+.btn-secondary:hover {
   opacity: 0.9;
 }
 

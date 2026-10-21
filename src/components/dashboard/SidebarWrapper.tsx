@@ -44,7 +44,7 @@ export default function SidebarWrapper({
             <Menu size={24} />
           </button>
           <span className="font-bold text-sm text-[#1E1B4B]">
-            Yunirides Training
+            Arigo Training
           </span>
           <div className="w-10" />
         </header>

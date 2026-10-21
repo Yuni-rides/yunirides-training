@@ -1,13 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  MessageSquare,
-  Phone,
-  Mail,
-  Plus,
-  Minus,
-} from "lucide-react";
+import { MessageSquare, Phone, Mail, Plus, Minus } from "lucide-react";
 import HelpHeader from "@/components/help/HelpHeader";
 import { useLogout } from "@/hooks/useLogout";
 
@@ -33,14 +27,9 @@ const FAQS = [
       "Go to the 'Certificates' page from the sidebar. Once you've completed all courses in a module, your certificate will be available to download there.",
   },
   {
-    question: "I forgot my password. What should I do?",
-    answer:
-      "On the login page, click 'Forgot Password' and enter your registered email. You'll receive a reset link shortly. Check your spam folder if you don't see it.",
-  },
-  {
     question: "Who should I contact if I experience technical issues?",
     answer:
-      "You can reach our support team via the Live Chat option on this page, or contact us directly at info@yunirides.com or 415-535-2155 during business hours.",
+      "You can reach our support team via the Live Chat option on this page, or contact us directly at admin@arigooo.com or 415-531-6769 during business hours.",
   },
 ];
 
@@ -58,7 +47,7 @@ function FaqItem({
   return (
     <div
       className={`border rounded-2xl transition-all duration-200 overflow-hidden ${
-        open ? "border-[#822C89] bg-white" : "border-gray-100 bg-white"
+        open ? "border-primary bg-white" : "border-gray-100 bg-white"
       }`}
     >
       <button
@@ -66,13 +55,13 @@ function FaqItem({
         className="w-full flex items-center justify-between px-5 py-4 text-left cursor-pointer"
       >
         <span
-          className={`text-sm font-semibold ${open ? "text-[#822C89]" : "text-[#1E1B4B]"}`}
+          className={`text-sm font-semibold ${open ? "text-primary" : "text-[#1E1B4B]"}`}
         >
           {question}
         </span>
         <div
           className={`shrink-0 ml-4 p-1 rounded-full transition-colors ${
-            open ? "bg-[#822C89] text-white" : "bg-slate-100 text-slate-400"
+            open ? "bg-primary text-white" : "bg-slate-100 text-slate-400"
           }`}
         >
           {open ? <Minus size={14} /> : <Plus size={14} />}
@@ -124,15 +113,13 @@ export default function HelpPage() {
           </div>
 
           <div className="w-full lg:w-80 space-y-6">
-            
-
             <div className="bg-[#EEF0FB] rounded-2xl p-6 border border-[#e2e4f0] shadow-sm">
               <div className="flex items-start gap-3 mb-2">
                 <div className="p-1">
-                  <MessageSquare size={28} className="text-[#1E1B4B]" />
+                  <MessageSquare size={28} className="text-secondary" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-[#1E1B4B] leading-none">
+                  <h3 className="text-lg font-bold text-secondary leading-none">
                     Live support
                   </h3>
                   <div className="h-[1px] bg-gray-300 w-full mt-2"></div>
@@ -166,23 +153,29 @@ export default function HelpPage() {
                 Contact Us
               </h3>
 
-              <div className="flex items-center gap-3 bg-[#EEF0FB] p-3 rounded-xl border border-[#e2e4f0]">
+              <a
+                href="tel:4155316769"
+                className="flex items-center gap-3 bg-[#EEF0FB] p-3 rounded-xl border border-[#e2e4f0] hover:bg-[#e4e7f8] transition-colors"
+              >
                 <div className="p-2 bg-[#1E1B4B] rounded-lg text-white">
                   <Phone size={16} />
                 </div>
                 <span className="text-xs font-medium text-gray-700">
-                  415-535-2155
+                  415-531-6769
                 </span>
-              </div>
+              </a>
 
-              <div className="flex items-center gap-3 bg-[#EEF0FB] p-3 rounded-xl border border-[#e2e4f0]">
+              <a
+                href="mailto:admin@arigooo.com"
+                className="flex items-center gap-3 bg-[#EEF0FB] p-3 rounded-xl border border-[#e2e4f0] hover:bg-[#e4e7f8] transition-colors"
+              >
                 <div className="p-2 bg-[#1E1B4B] rounded-lg text-white">
                   <Mail size={16} />
                 </div>
                 <span className="text-xs font-medium text-gray-700">
-                  info@yunirides.com
+                  admin@arigooo.com
                 </span>
-              </div>
+              </a>
             </div>
           </div>
         </div>

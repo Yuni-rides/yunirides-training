@@ -29,16 +29,16 @@ export default function ModuleDetailedCard({
       >
         <div
           className="absolute inset-0 z-10"
-          style={{ background: "#822C89", opacity: 0.5 }}
+          style={{ background: "#D85A44", opacity: 0.5 }}
         />
         <img src={src} alt={title} className="w-full h-full object-cover" />
       </div>
 
       <div className="flex-1 flex flex-col justify-between px-5 py-4">
         <div className="flex flex-col gap-1.5">
-          <h2 className="text-[16px] font-bold text-[#2C3979]">{title}</h2>
+          <h2 className="text-[16px] font-bold text-secondary">{title}</h2>
 
-          <h4 className="text-[12px] font-semibold text-[#822C89]">
+          <h4 className="text-[12px] font-semibold text-primary">
             {subTitle}
           </h4>
 
@@ -52,7 +52,7 @@ export default function ModuleDetailedCard({
           className={cn(
             "w-full py-2.5 rounded-xl text-[12px] font-semibold transition mt-3",
             buttonVariant === "primary"
-              ? "bg-[#822C89] hover:bg-[#6e2474] text-white"
+              ? "bg-primary hover:bg-primary/90 text-white"
               : "bg-transparent text-[#9CA3AF] hover:bg-[#EFF2FF] border border-[#e8eaf6]",
           )}
         >

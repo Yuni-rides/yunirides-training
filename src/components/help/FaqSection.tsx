@@ -15,7 +15,7 @@ export default function FaqSection() {
   return (
     <div className="flex-1 ">
       {/* FAQ Title */}
-      <h2 className="text-[#4F3E9C] font-bold mb-4">
+      <h2 className="text-secondary font-bold mb-4">
         Frequently Asked Questions (FAQ)
       </h2>
 
@@ -26,10 +26,10 @@ export default function FaqSection() {
             key={index}
             className="bg-white border border-gray-100 rounded-xl w-[700px] h-[50px] p-4 flex items-center justify-between cursor-pointer hover:shadow-sm transition-shadow group"
           >
-            <span className="text-sm text-gray-700 font-medium group-hover:text-[#4F3E9C] transition-colors">
+            <span className="text-sm text-gray-700 font-medium group-hover:text-primary transition-colors">
               {faq}
             </span>
-            <Plus size={18} className="text-[#4F3E9C]" />
+            <Plus size={18} className="text-primary" />
           </div>
         ))}
       </div>

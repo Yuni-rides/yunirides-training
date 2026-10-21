@@ -77,7 +77,7 @@ export default function CombinedOverviewOverall() {
               score={overallScore}
               size={125}
               strokeWidth={14}
-              color="#822C89"
+              color="#D85A44"
               bgColor="#E2E8F0"
             />
             <div
@@ -88,10 +88,10 @@ export default function CombinedOverviewOverall() {
                 transform: "translate(-50%, -50%)",
               }}
             >
-              <span className="text-[22px] font-bold text-[#1F2937]">
+              <span className="text-[22px] font-bold text-secondary">
                 {overallScore}
               </span>
-              <span className="text-[12px] font-semibold text-[#9CA3AF] ml-0.5">
+              <span className="text-[12px] font-semibold text-secondary ml-0.5">
                 %
               </span>
             </div>
@@ -103,7 +103,7 @@ export default function CombinedOverviewOverall() {
                 <div
                   className="w-[3.5px] h-9 rounded-full shrink-0 mt-0.5"
                   style={{
-                    background: mod.type === "MODULE_1" ? "#822C89" : "#1E3A8A",
+                    background: mod.type === "MODULE_1" ? "#D85A44" : "#151D32",
                   }}
                 />
                 <div className="flex flex-col">
@@ -207,7 +207,7 @@ export default function CombinedOverviewOverall() {
               className="h-full rounded-full transition-all duration-500 ease-out"
               style={{
                 width: `${certPct}%`,
-                background: "#822C89",
+                background: "#D85A44",
               }}
             />
           </div>

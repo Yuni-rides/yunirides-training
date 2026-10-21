@@ -31,18 +31,18 @@ export default function DashboardPage() {
 
         <div className="bg-[#EFF2FF] rounded-[32px] overflow-hidden flex flex-col md:flex-row items-stretch shadow-sm border border-blue-50 min-h-[220px]">
           <div className="flex-1 p-8 flex flex-col justify-center">
-            <h2 className="text-2xl lg:text-3xl font-black text-[#2C3979] leading-[1.1] uppercase italic">
-              Safe & Compassionate <br /> Transportation for Every Child.
+            <h2 className="text-2xl lg:text-3xl font-black text-secondary leading-[1.1] uppercase italic">
+              Excellence in Care <br /> & Efficient Logistics.
             </h2>
             <p className="text-sm text-slate-500 mt-4 font-bold max-w-sm leading-relaxed">
-              Providing transportation for children with special needs requires
-              patience, awareness, and responsibility.
+              Complete your specialized driver training to deliver safe NEMT
+              care and reliable transportation every day.
             </p>
           </div>
           <div className="relative w-full md:w-[350px] lg:w-[400px] h-48 md:h-auto overflow-hidden">
             <img
-              src="/images/child.png"
-              alt="banner"
+              src="/images/arigo-driver.png"
+              alt="arigo-driver"
               className="absolute inset-0 w-full h-full object-cover object-center"
             />
           </div>
@@ -51,7 +51,7 @@ export default function DashboardPage() {
         <div className="flex flex-col lg:flex-row gap-8 items-start">
           <div className="flex-1 flex flex-col gap-6">
             <div className="flex items-center gap-2">
-              <h3 className="text-lg font-black text-[#2C3979] uppercase italic">
+              <h3 className="text-lg font-black text-secondary uppercase italic">
                 Training Modules
               </h3>
               <div className="h-px flex-1 bg-slate-100"></div>

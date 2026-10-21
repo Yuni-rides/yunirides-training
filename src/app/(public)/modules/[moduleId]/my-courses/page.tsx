@@ -20,14 +20,14 @@ function AssessmentCard({
   return (
     <div className="flex items-center gap-2 sm:gap-4 bg-[#EFF2FF] p-2.5 sm:p-4 rounded-xl border border-white shadow-sm w-full min-w-0">
       <div className="bg-white p-2 sm:p-2.5 rounded-lg shadow-sm flex items-center justify-center shrink-0">
-        <Monitor size={18} className="text-[#822C89] sm:size-5" />
+        <Monitor size={18} className="text-primary sm:size-5" />
       </div>
       <div className="flex flex-col min-w-0">
         <span className="text-[10px] sm:text-[11px] text-gray-500 font-medium uppercase tracking-tight leading-none mb-1 truncate">
           {title}
         </span>
         <div className="flex items-baseline gap-1 sm:gap-2 flex-wrap">
-          <span className="text-base sm:text-xl font-bold text-[#822C89] leading-none">
+          <span className="text-base sm:text-xl font-bold text-primary leading-none">
             {value}
           </span>
           <span className="text-[9px] sm:text-[10px] text-gray-400 whitespace-normal leading-tight">
@@ -97,7 +97,7 @@ export default function MyCoursesPage() {
         {(loading || coursesLoading) && <Loader />}
 
         <div className="w-full bg-[#EFF2FF] rounded-2xl px-6 py-4 flex items-center justify-between border border-transparent shadow-sm">
-          <h1 className="text-lg font-semibold text-[#1E1B4B]">My Courses</h1>
+          <h1 className="text-lg font-semibold text-secondary">My Courses</h1>
 
           <div className="flex items-center gap-3">
             <UserMenu />
@@ -111,7 +111,7 @@ export default function MyCoursesPage() {
               onClick={() => setActiveTab(idx)}
               className={`px-5 py-2 rounded-lg text-sm font-bold transition-all cursor-pointer ${
                 activeTab === idx
-                  ? "bg-[#2C3979] text-white shadow"
+                  ? "bg-secondary text-white shadow"
                   : "text-slate-400 hover:text-slate-600"
               }`}
             >
@@ -130,7 +130,7 @@ export default function MyCoursesPage() {
                 onClick={() => setActiveCategoryId(cat.id)}
                 className={`cursor-pointer pb-2 text-sm font-semibold transition-all border-b-2 whitespace-nowrap shrink-0 ${
                   activeCategoryId === cat.id
-                    ? "border-[#822C89] text-[#822C89]"
+                    ? "border-primary text-primary"
                     : "border-transparent text-slate-400 hover:text-slate-600"
                 }`}
               >
@@ -141,7 +141,7 @@ export default function MyCoursesPage() {
         )}
 
         <div>
-          <h2 className="text-base font-black text-[#2C3979] uppercase italic mb-3">
+          <h2 className="text-base font-black text-secondary uppercase italic mb-3">
             Assessments
           </h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
@@ -169,7 +169,7 @@ export default function MyCoursesPage() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-sm font-bold text-[#1E1B4B] border-b-2 border-[#635BFF] pb-1">
+          <span className="text-sm font-bold text-[#1E1B4B] border-b-2 border-primary pb-1">
             {assessments?.totalCourses ?? 0} Courses
           </span>
           <span className="text-sm text-gray-400">

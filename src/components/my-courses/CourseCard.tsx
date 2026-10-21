@@ -64,7 +64,7 @@ export default function CourseCard({
       className={`rounded-2xl overflow-hidden bg-white shadow-sm transition-all border h-full flex flex-col ${
         isLocked
           ? "opacity-50 cursor-not-allowed border-transparent"
-          : "hover:shadow-md cursor-pointer hover:border-purple-200 border-transparent group"
+          : "hover:shadow-md cursor-pointer hover:border-primary/20 border-transparent group"
       }`}
     >
       <div className="relative h-[140px] overflow-hidden bg-gray-200">
@@ -77,7 +77,7 @@ export default function CourseCard({
             }`}
           />
         ) : (
-          <div className="w-full h-full bg-[#2D1B69]/20" />
+          <div className="w-full h-full bg-primary/20" />
         )}
 
         <div
@@ -111,11 +111,11 @@ export default function CourseCard({
 
       <div className="p-3 flex-1 flex flex-col justify-between">
         <p
-          className={`text-[12px] font-bold text-[#1a1a2e] line-clamp-2 leading-snug transition-colors ${
-            !isLocked ? "group-hover:text-purple-700" : ""
+          className={`text-[12px] font-bold text-secondary line-clamp-2 leading-snug transition-colors ${
+            !isLocked ? "group-hover:text-primary/80" : ""
           }`}
         >
-          {course.title ?? "Yunirides New Driver Training"}
+          {course.title ?? "Arigo New Driver Training"}
         </p>
 
         <div className="mt-2">{statusBadge}</div>

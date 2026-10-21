@@ -30,7 +30,7 @@ export default function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
       className={`h-screen sticky top-0 bg-[#EFF2FF] shadow-md flex flex-col transition-all duration-300 ${collapsed ? "w-20" : "w-64"}`}
     >
       <div className="flex items-center justify-between p-4">
-        {!collapsed && <img src="/images/logo.png" alt="yuni rides logo" className="h-10" />}
+        {!collapsed && <img src="/images/logo.png" alt="arigo rides logo" className="h-10" />}
         <button
           onClick={() => setCollapsed(!collapsed)}
           className="p-2 rounded-lg hover:bg-purple-100"
@@ -99,13 +99,13 @@ function NavItem({
   return (
     <div
       className={`flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer transition ${
-        active ? "bg-[#822C89] text-white" : "text-[#822C89] hover:bg-gray-100"
+        active ? "bg-primary text-white" : "text-primary hover:bg-gray-100"
       }`}
     >
       <div className="w-6 h-6 flex items-center justify-center">{children}</div>
       {!collapsed && (
         <span
-          className={`text-sm font-medium ${active ? "text-white" : "text-black"}`}
+          className={`text-sm font-medium ${active ? "text-white" : "text-secondary"}`}
         >
           {label}
         </span>

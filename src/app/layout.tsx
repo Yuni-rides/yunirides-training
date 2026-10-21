@@ -7,7 +7,7 @@ import { Toaster } from "@/components/ui/Toaster";
 const geist = Geist({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Yuni Rides Training",
+  title: "Arigo Training Portal",
   description: "Training Portal",
 };
 

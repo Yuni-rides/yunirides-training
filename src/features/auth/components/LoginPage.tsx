@@ -88,7 +88,7 @@ export default function TrainingLoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-[#8B1F7A] focus:ring-2 focus:ring-[#8B1F7A]/20"
+              className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3.5 text-sm text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
             />
           </div>
 
@@ -100,7 +100,7 @@ export default function TrainingLoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3.5 pr-12 text-sm text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-[#8B1F7A] focus:ring-2 focus:ring-[#8B1F7A]/20"
+                className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3.5 pr-12 text-sm text-gray-700 outline-none transition placeholder:text-gray-400 focus:border-primary focus:ring-2 focus:ring-primary/20"
               />
               <button
                 type="button"
@@ -118,7 +118,7 @@ export default function TrainingLoginPage() {
                 type="checkbox"
                 checked={rememberMe}
                 onChange={(e) => setRememberMe(e.target.checked)}
-                className="h-5 w-5 cursor-pointer accent-[#8B1F7A] rounded"
+                className="h-5 w-5 cursor-pointer accent-primary rounded"
               />
               <span className="text-sm text-gray-600">Remember password</span>
             </label>
@@ -127,7 +127,7 @@ export default function TrainingLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 w-full rounded-lg bg-[#8B1F7A] py-3.5 text-sm font-semibold text-white transition hover:bg-[#7a1a6a] disabled:opacity-60 cursor-pointer flex justify-center items-center"
+            className="mt-2 w-full rounded-lg bg-primary py-3.5 text-sm font-semibold text-white transition hover:bg-primary/90 disabled:opacity-60 cursor-pointer flex justify-center items-center"
           >
             {loading ? "Signing in..." : "Sign in"}
           </button>

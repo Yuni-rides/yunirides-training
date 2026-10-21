@@ -45,7 +45,7 @@ function CertificateCard({
       <div className="flex flex-col items-center justify-center px-4 py-5 mx-3 mb-3 rounded-xl bg-[#FAFBFF] border border-gray-100">
         <img
           src="/images/logo.png"
-          alt="Yuni Rides"
+          alt="logo"
           className="h-10 object-contain mb-4"
         />
         <div className="w-full border-t border-dashed border-gray-200 mb-3" />
@@ -192,7 +192,7 @@ export default function CertificatesPage() {
             <button
               onClick={handleDownloadAll}
               disabled={filtered.length === 0}
-              className="flex items-center gap-2 bg-[#822C89] hover:bg-[#6e2474] text-white text-[12px] font-semibold px-5 py-2.5 rounded-xl transition cursor-pointer disabled:opacity-50"
+              className="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white text-[12px] font-semibold px-5 py-2.5 rounded-xl transition cursor-pointer disabled:opacity-50"
             >
               Download All
               <Download size={14} />

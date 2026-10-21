@@ -400,10 +400,10 @@ export default function CourseDetailPage({
           {/* header row */}
           <div className="flex items-center justify-between mb-5">
             <div className="flex items-center gap-2">
-              <div className="p-2 bg-[#EFF2FF] rounded-xl text-[#822C89]">
+              <div className="p-2 bg-[#EFF2FF] rounded-xl text-primary">
                 <HelpCircle size={16} />
               </div>
-              <span className="text-[10px] font-black text-purple-600 uppercase tracking-widest">
+              <span className="text-[10px] font-black text-secondary uppercase tracking-widest">
                 Question {qNum}/{totalQ}
               </span>
             </div>
@@ -421,7 +421,7 @@ export default function CourseDetailPage({
           <div className="w-full bg-slate-100 rounded-full h-1.5 mb-6">
             <div
               className={`h-1.5 rounded-full transition-all duration-1000 ${
-                quizState.timeLeft <= 10 ? "bg-red-400" : "bg-[#822C89]"
+                quizState.timeLeft <= 10 ? "bg-red-400" : "bg-primary"
               }`}
               style={{ width: `${timerPct}%` }}
             />
@@ -438,11 +438,11 @@ export default function CourseDetailPage({
                 onClick={() => setSelectedOptionIndex(idx)}
                 className={`w-full p-3.5 text-left rounded-xl border text-xs font-medium transition-all cursor-pointer ${
                   selectedOptionIndex === idx
-                    ? "border-[#822C89] bg-[#EFF2FF] text-[#1E1B4B] font-bold"
+                    ? "border-secomdary bg-[#EFF2FF] text-secondary font-bold"
                     : "border-slate-100 hover:bg-slate-50 text-slate-600"
                 }`}
               >
-                <span className="inline-block mr-2 text-purple-500 font-bold">
+                <span className="inline-block mr-2 text-secondary font-bold">
                   {option.label}.
                 </span>
                 {option.text}
@@ -457,9 +457,9 @@ export default function CourseDetailPage({
                   key={i}
                   className={`w-2 h-2 rounded-full transition-all  ${
                     i < quizState.currentQuestionIndex
-                      ? "bg-[#822C89]"
+                      ? "bg-secondary"
                       : i === quizState.currentQuestionIndex
-                        ? "bg-[#822C89] scale-125"
+                        ? "bg-primary scale-125"
                         : "bg-slate-200"
                   }`}
                 />
@@ -524,7 +524,7 @@ export default function CourseDetailPage({
           </div>
 
           <div className="bg-white p-6 rounded-[32px] shadow-sm border border-slate-100">
-            <div className="flex items-center gap-3 mb-3 text-[#822C89]">
+            <div className="flex items-center gap-3 mb-3 text-primary">
               <BookOpen className="w-5 h-5" />
               <span className="font-bold uppercase tracking-wider text-xs">
                 Module Breakdown
@@ -571,12 +571,12 @@ export default function CourseDetailPage({
                         }
                       }}
                       className={`p-3.5 rounded-[20px] flex items-center gap-3.5 transition-all
-                        ${isActive ? "ring-2 ring-purple-500 bg-purple-50/60" : ""}
+                        ${isActive ? "ring-2 ring-primary bg-purple-50/60" : ""}
                         ${!isUnlocked ? "opacity-40 cursor-not-allowed bg-slate-50" : "cursor-pointer hover:bg-slate-50"}`}
                     >
                       <div
                         className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 text-white
-                        ${item.isPassed ? "bg-purple-600" : "bg-slate-200"}`}
+                        ${item.isPassed ? "bg-primary" : "bg-slate-200"}`}
                       >
                         {item.isPassed ? (
                           <Check className="w-4 h-4" />
@@ -589,7 +589,7 @@ export default function CourseDetailPage({
 
                       <div className="flex flex-col min-w-0 flex-1">
                         <span
-                          className={`text-xs font-bold truncate ${isActive ? "text-purple-700" : "text-slate-700"}`}
+                          className={`text-xs font-bold truncate ${isActive ? "text-primary" : "text-slate-700"}`}
                         >
                           {item.title}
                         </span>
@@ -609,7 +609,7 @@ export default function CourseDetailPage({
             className={`p-6 rounded-[32px] transition-all duration-500 
             ${
               certificateUnlock?.isEligible
-                ? "bg-gradient-to-br from-[#2C3979] to-indigo-900 text-white shadow-md"
+                ? "bg-gradient-to-br from-primary to-indigo-900 text-white shadow-md"
                 : "bg-slate-100 border border-slate-200/60 text-slate-400"
             }`}
           >
