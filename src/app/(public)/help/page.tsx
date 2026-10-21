@@ -176,6 +176,7 @@ export default function HelpPage() {
                   admin@arigooo.com
                 </span>
               </a>
+              
             </div>
           </div>
         </div>
