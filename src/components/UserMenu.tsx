@@ -41,7 +41,7 @@ export default function UserMenu() {
           />
         ) : (
           <div className="w-10 h-10 rounded-full border-2 border-white shadow-sm bg-[#EFF2FF] flex items-center justify-center">
-            <User size={20} className="text-[#822C89] " />
+            <User size={20} className="text-[#D85A44] " />
           </div>
         )}
       </button>
